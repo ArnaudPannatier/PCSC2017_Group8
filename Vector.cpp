@@ -4,6 +4,3 @@
 
 #include "Vector.h"
 
-Vector::Vector(valarray<double> arr) {
-
-}

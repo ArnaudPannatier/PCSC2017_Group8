@@ -6,31 +6,46 @@
 //
 
 #include "Matrix.h"
+
 Matrix::Matrix () {
     dim = Dimension(0,0);
-    values = valarray< valarray<double> >();
+    values = vector2D();
 }
-Matrix::Matrix (valarray< valarray<double> > arr) {
-    size_t x = arr.size();
-    size_t y = arr[0].size();
-    dim = Dimension(x,y);
+Matrix::Matrix(vector2D arr){
+    dim = Dimension(arr.size(), arr[0].size());
     values = arr;
-
+}
+Matrix::Matrix (initializer_list< initializer_list<double> > list){
+    values = vector2D();
+    for(auto l : list){
+           values.push_back(vector<double>(l));
+    }
+    dim = Dimension(values.size(), values[0].size());
 }
 Matrix::Matrix(const Matrix &m) {
     values = m.values;
     dim = m.dim;
 }
+
+
 double Matrix::Get(const int i, const int j) const {
-    return 0;
+    return values[i][j];
 }
 
 void Matrix::Set(const int i, const int j, const double &value) {
-
+    values[i][j] = value;
 }
 
 void Matrix::Transpose() {
+    vector2D transpose = vector2D(dim.lines, vector<double>(dim.cols));
 
+    for(size_t i=0; i<dim.lines; i++){
+        for(size_t j=0; j<dim.cols; j++) {
+                transpose[j][i] = values[i][j];
+        }
+    }
+    dim.transpose();
+    values = transpose;
 }
 
 Matrix &Matrix::operator=(const Matrix &m) {
@@ -61,12 +76,38 @@ Matrix Matrix::operator*(const Matrix &m) const {
     return Matrix();
 }
 
+std::ostream &operator<< (std::ostream &output, const Matrix &m) {
+    output << endl << "[";
+    for(int l=0; l<m.dim.lines; l++) {
+      output << "[";
+      for (int c = 0; c < m.dim.cols; c++) {
+          output<< m.Get (l,c);
+          if(c+1<m.dim.cols) {
+              output << ",";
+          }
+      }
+      output << "]";
+      if(l+1<m.dim.lines) {
+          output << endl;
+      }
+    }
+    output << "]" << endl;
+    return output;
+}
+
+
 Dimension::Dimension() {
     lines = 0;
     cols = 0;
 }
-Dimension::Dimension(int lines_, int col_) {
+Dimension::Dimension(size_t lines_, size_t col_) {
     lines = lines_;
     cols = col_;
+}
+
+void Dimension::transpose () {
+    size_t lines_ = lines;
+    lines = cols;
+    cols = lines_;
 }
 

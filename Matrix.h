@@ -9,23 +9,29 @@
 #define PCSC2017_GROUP8_MATRIX_H
 
 #include <iostream>
-#include <valarray>
+#include <vector>
+#include <initializer_list>
 
 using namespace std;
 
+typedef vector < vector<double> > vector2D;
+
 struct Dimension {
     Dimension();
-    Dimension(int i, int j);
+    Dimension(size_t i, size_t j);
 
-    int lines;
-    int cols;
+    void transpose();
+
+    size_t lines;
+    size_t cols;
 };
 
 class Matrix {
 public:
     //Constructors
     Matrix();
-    Matrix(valarray< valarray<double> > arr);
+    explicit Matrix(vector< vector<double> > arr);
+    explicit Matrix(initializer_list<initializer_list<double> > list);
     Matrix(const Matrix& m);
 
     // Get Methods
@@ -45,9 +51,10 @@ public:
     Matrix operator*(const double d) const;
     Matrix operator*(const Matrix& m) const;
 
+    friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
 private:
     Dimension dim;
-    valarray < valarray<double> > values;
+    vector2D values;
 };
 
 #endif //PCSC2017_GROUP8_MATRIX_H

@@ -10,8 +10,12 @@
 using namespace std;
 
 int main(){
-
-    cout << "Test CLION" <<endl;
+    cout << "--- Start of the Tests of the Matrix Class -----------" <<endl;
+    cout << "-- Constructors and print : " << endl;
+    Matrix m0;
+    cout << "- Empty Matrix : " << m0;
+    Matrix m1({{1,2,3},{1,2,3}});
+    cout << "- Initializer list {{1,2,3},{1,2,3}} :" << m1;
 
     return 0;
 }

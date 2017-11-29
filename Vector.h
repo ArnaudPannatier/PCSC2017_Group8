@@ -13,7 +13,6 @@
 
 class Vector : public Matrix {
 public:
-    explicit Vector(valarray<double> arr);
 };
 
 #endif //PROJECT_VECTOR_H
