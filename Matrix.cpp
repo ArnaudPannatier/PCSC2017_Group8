@@ -37,11 +37,6 @@ void Matrix::Transpose() {
     values = transpose.values;
 }
 
-Matrix& Matrix::operator=(const Matrix &m) {
-    values = m.values;
-    dim = m.dim;
-    return *this;
-}
 
 Matrix Matrix::operator-() const {
     return Matrix(*this) * -1;
@@ -128,6 +123,10 @@ const double &Matrix::operator() (size_t i, size_t j) const {
 
 double &Matrix::operator() (size_t i, size_t j) {
     return values[i][j];
+}
+
+Dimension Matrix::size () const {
+    return dim;
 }
 
 Dimension::Dimension() {

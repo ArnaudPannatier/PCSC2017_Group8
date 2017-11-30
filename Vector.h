@@ -15,6 +15,9 @@ using namespace std;
 class Vector : public Matrix {
 public:
     explicit Vector(vector<double>);
+    explicit Vector(size_t i): Matrix(1,i){};
+
+    size_t size() const;
 };
 
 #endif //PROJECT_VECTOR_H

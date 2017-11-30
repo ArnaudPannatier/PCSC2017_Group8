@@ -34,15 +34,15 @@ public:
     //Constructors
     Matrix();
     explicit Matrix(vector< vector<double> > arr);
-    explicit Matrix(initializer_list<initializer_list<double> > list);
+    Matrix(initializer_list<initializer_list<double> > list);
     Matrix(size_t i, size_t j);
 
     //Public Methods
     void Transpose();
     bool multipliable(const Matrix& m) const;
+    Dimension size() const;
 
     // Operators
-    Matrix& operator=(const Matrix& m);
     Matrix operator-() const;
     //Mutator
     vector<double>& operator[](size_t i);
