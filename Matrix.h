@@ -12,6 +12,7 @@
 #include <vector>
 #include <initializer_list>
 
+
 using namespace std;
 
 typedef vector < vector<double> > vector2D;
@@ -21,6 +22,8 @@ struct Dimension {
     Dimension(size_t i, size_t j);
 
     void transpose();
+
+    bool operator==(const Dimension&) const ;
 
     size_t lines;
     size_t cols;
@@ -32,27 +35,29 @@ public:
     Matrix();
     explicit Matrix(vector< vector<double> > arr);
     explicit Matrix(initializer_list<initializer_list<double> > list);
-    Matrix(const Matrix& m);
-
-    // Get Methods
-    double Get(int i, int j) const;
-
-    // Set Methods
-    void Set(int i, int j, const double& value);
+    Matrix(size_t i, size_t j);
 
     //Public Methods
     void Transpose();
+    bool multipliable(const Matrix& m) const;
 
     // Operators
     Matrix& operator=(const Matrix& m);
     Matrix operator-() const;
+    //Mutator
+    vector<double>& operator[](size_t i);
+    double& operator()(size_t i, size_t j);
+    // Accessor
+    const vector<double>& operator[](size_t i) const;
+    const double& operator()(size_t i, size_t j) const;
+
     Matrix operator+(const Matrix& m) const;
     Matrix operator-(const Matrix& m) const;
-    Matrix operator*(const double d) const;
+    Matrix operator*(const double& d) const;
     Matrix operator*(const Matrix& m) const;
 
-    friend std::ostream& operator<<(std::ostream& output, const Matrix& m);
-private:
+    friend ostream& operator<<(ostream& output, const Matrix& m);
+protected:
     Dimension dim;
     vector2D values;
 };

@@ -22,58 +22,73 @@ Matrix::Matrix (initializer_list< initializer_list<double> > list){
     }
     dim = Dimension(values.size(), values[0].size());
 }
-Matrix::Matrix(const Matrix &m) {
-    values = m.values;
-    dim = m.dim;
+Matrix::Matrix (size_t i, size_t j) {
+    dim = Dimension(i,j);
+    values =vector2D(i, vector<double>(j));
 }
-
-
-double Matrix::Get(const int i, const int j) const {
-    return values[i][j];
-}
-
-void Matrix::Set(const int i, const int j, const double &value) {
-    values[i][j] = value;
-}
-
 void Matrix::Transpose() {
-    vector2D transpose = vector2D(dim.lines, vector<double>(dim.cols));
-
-    for(size_t i=0; i<dim.lines; i++){
-        for(size_t j=0; j<dim.cols; j++) {
-                transpose[j][i] = values[i][j];
+    Matrix transpose = Matrix(dim.cols, dim.lines);
+    for(size_t l=0; l<dim.lines; l++){
+        for(size_t c=0; c<dim.cols; c++) {
+            transpose(c,l) = values[l][c];
         }
     }
     dim.transpose();
-    values = transpose;
+    values = transpose.values;
 }
 
-Matrix &Matrix::operator=(const Matrix &m) {
+Matrix& Matrix::operator=(const Matrix &m) {
     values = m.values;
     dim = m.dim;
     return *this;
 }
 
 Matrix Matrix::operator-() const {
-    Matrix m;
-    m.values = values;
-    return m;
+    return Matrix(*this) * -1;
 }
 
 Matrix Matrix::operator+(const Matrix &m) const {
-    return Matrix();
+    if(dim == m.dim){
+        Matrix ret = m;
+        for(size_t l=0; l<dim.lines; l++){
+            for(size_t c=0; c<dim.cols; c++) {
+                ret(l,c) += values[l][c];
+            }
+        }
+        return ret;
+    }else{
+        throw "Not the same dimension";
+    }
 }
 
 Matrix Matrix::operator-(const Matrix &m) const {
-    return Matrix();
+    return Matrix(*this) + (-m);
 }
 
-Matrix Matrix::operator*(const double d) const {
-    return Matrix();
+Matrix Matrix::operator*(const double& d) const {
+    Matrix ret = *this;
+    for(size_t l=0; l<dim.lines; l++){
+        for(size_t c=0; c<dim.cols; c++) {
+            ret(l,c) *= d;
+        }
+    }
+    return ret;
 }
 
 Matrix Matrix::operator*(const Matrix &m) const {
-    return Matrix();
+    if(multipliable(m)){
+        Matrix ret = Matrix(dim.lines,m.dim.cols);
+        for(size_t i = 0; i<ret.dim.lines; i++){
+            for(size_t j = 0; j<ret.dim.cols; j++) {
+                for(size_t h=0; h<dim.cols; h++){
+                    ret(i,j) += values[i][h]*m(h,j);
+                }
+            }
+        }
+        return ret;
+    }else{
+        throw "Second dimension does not corresponds to first dimension of the second matrix";
+    }
 }
 
 std::ostream &operator<< (std::ostream &output, const Matrix &m) {
@@ -81,7 +96,7 @@ std::ostream &operator<< (std::ostream &output, const Matrix &m) {
     for(int l=0; l<m.dim.lines; l++) {
       output << "[";
       for (int c = 0; c < m.dim.cols; c++) {
-          output<< m.Get (l,c);
+          output<< m(l,c);
           if(c+1<m.dim.cols) {
               output << ",";
           }
@@ -95,6 +110,25 @@ std::ostream &operator<< (std::ostream &output, const Matrix &m) {
     return output;
 }
 
+bool Matrix::multipliable (const Matrix &m) const {
+    return (dim.cols == m.dim.lines);
+}
+
+vector<double>& Matrix::operator[] (size_t i) {
+    return values[i];
+}
+
+const vector<double>& Matrix::operator[] (size_t i) const {
+    return values[i];
+}
+
+const double &Matrix::operator() (size_t i, size_t j) const {
+    return values[i][j];
+}
+
+double &Matrix::operator() (size_t i, size_t j) {
+    return values[i][j];
+}
 
 Dimension::Dimension() {
     lines = 0;
@@ -109,5 +143,9 @@ void Dimension::transpose () {
     size_t lines_ = lines;
     lines = cols;
     cols = lines_;
+}
+
+bool Dimension::operator== (const Dimension& d) const {
+    return (lines == d.lines && cols == d.cols);
 }
 

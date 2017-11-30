@@ -17,5 +17,18 @@ int main(){
     Matrix m1({{1,2,3},{1,2,3}});
     cout << "- Initializer list {{1,2,3},{1,2,3}} :" << m1;
 
+    cout << "-- Accessing : " << endl;
+    cout << "m1(1,2) = " << m1(1,2) << endl;
+    cout << "m1[1][2] = " << m1[1][2] << endl;
+
+    cout << "-- Mutating : " << endl;
+    cout << "mutate : m1(1,2) = 5" << endl;
+    m1(1,2) = 5;
+    cout << "m1(1,2) = " << m1(1,2) << endl;
+    cout << "mutate : m1[0][1] = 6" << endl;
+    m1[0][1] = 6;
+    cout << "mutate : m1[0][1] = " << m1[0][1] <<endl;
+
+
     return 0;
 }

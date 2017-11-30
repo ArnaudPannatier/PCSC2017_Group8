@@ -10,9 +10,11 @@
 #define PROJECT_VECTOR_H
 
 #include "Matrix.h"
+using namespace std;
 
 class Vector : public Matrix {
 public:
+    explicit Vector(vector<double>);
 };
 
 #endif //PROJECT_VECTOR_H
