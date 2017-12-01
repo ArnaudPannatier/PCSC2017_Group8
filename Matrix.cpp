@@ -37,6 +37,17 @@ void Matrix::Transpose() {
     values = transpose.values;
 }
 
+Matrix Matrix::T() {
+    Matrix transpose = Matrix(dim.cols, dim.lines);
+    for(size_t l=0; l<dim.lines; l++){
+        for(size_t c=0; c<dim.cols; c++) {
+            transpose(c,l) = values[l][c];
+        }
+    }
+    //dim.transpose();
+    //values = transpose.values;
+    return transpose;
+}
 
 Matrix Matrix::operator-() const {
     return Matrix(*this) * -1;

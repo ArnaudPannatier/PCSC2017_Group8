@@ -39,6 +39,7 @@ public:
 
     //Public Methods
     void Transpose();
+    Matrix T();
     bool multipliable(const Matrix& m) const;
     Dimension size() const;
 
