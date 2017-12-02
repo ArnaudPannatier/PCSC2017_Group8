@@ -63,30 +63,6 @@ Matrix directSolvers::getU() { return U; }
 
 Matrix directSolvers::getX() {
 
-    int size = b.size().lines;
 
-    // Initialize x matrix
-    Matrix x = Matrix(size, 1);
-
-    // Compute z for Lz = b
-    Matrix z = Matrix(size,1);
-    for(int i=1;i<=size;i++)
-    {
-        double sum=0;
-        for(int p=1;p<i;p++)
-            sum+=L[i][p]*z[p][0];
-        z[i][0]=(b[i][0]-sum)/L[i][i];
-    }
-
-    for(int i=size;i>0;i--)
-    {
-        double sum=0;
-        for(int p= size;p>i;p--)
-            sum+=U[i][p]*x[p][0];
-        x[i][0]=(z[i][0]-sum)/U[i][i];
-    }
-
-    cout << x << endl;
-    return x;
 
 }

@@ -47,11 +47,14 @@ int main(){
     Matrix A2({{4,1},{1,3}});
     Matrix b2({{1,2}}), x_0({{2,1}});
 
+    // todo: row vector default ?
     b2 = b2.T();
     x_0 = x_0.T();
 
     iterativeSolvers itSolvers(A2, b2);
+
     cout << "x: " << itSolvers.conjugateGradientDescent(x_0) << endl;
+    cout << "x: " << itSolvers.gaussSeidel(x_0) << endl;
 
     return 0;
 }

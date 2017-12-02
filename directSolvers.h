@@ -17,6 +17,16 @@ public:
     // Constructor
     directSolvers(const Matrix& A, const Matrix& b);
 
+    /** \brief Conjugate Gradient Descent
+     * \param x_0 initial guess for the solution
+     * \param iterations maximum number of iterations
+     * \param tolerance convergence test
+     * \return solution to the problem Ax = b
+     *
+     * This method implements Crout's algorithm for factorizing a matrix A as the product of a lower triangular matrix
+     * and a unit upper triangular matrix. https://en.wikipedia.org/wiki/LU_decomposition
+     */
+
     void LU();
 
     Matrix getL();

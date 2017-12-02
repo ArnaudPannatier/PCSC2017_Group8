@@ -5,7 +5,17 @@
 #include "iterativeSolvers.h"
 
 //=================================================================================================
-iterativeSolvers::iterativeSolvers(const Matrix &A, const Matrix &B) : A(A), b(B)  {}
+iterativeSolvers::iterativeSolvers(const Matrix &A, const Matrix &B) : A(A), b(B)  {
+
+    if(A.size().lines == A.size().cols) {
+        size = A.size().cols;
+    }
+    else {
+        throw "Matrix is not square";
+    }
+
+
+}
 
 //=================================================================================================
 Matrix iterativeSolvers::conjugateGradientDescent(Matrix& x, int max_iterations, double tolerance) {
@@ -37,6 +47,41 @@ Matrix iterativeSolvers::conjugateGradientDescent(Matrix& x, int max_iterations,
 
         // Update residual for next iteration
         r_old = r_new;
+
+        k++;
+    }
+
+    return x;
+}
+
+//=================================================================================================
+Matrix iterativeSolvers::gaussSeidel(Matrix& x, int max_iterations, double tolerance) {
+
+    // check for zero elements on the diagonals
+    for (int i = 0; i < size; i++)
+    {
+        if(A[i][i] != 0) {
+            continue;
+        }
+        else {
+            throw "Matrix has zero on diagonal";
+        }
+    }
+
+    int k = 0;
+    while (k < max_iterations)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            double y = (b[i][0] / A[i][i]);
+            for (int j = 0; j < size; j++)
+            {
+                if (j == i) continue;
+
+                y = y - ((A[i][j] / A[i][i]) * x[j][0]);
+                x[i][0] = y;
+            }
+        }
 
         k++;
     }
