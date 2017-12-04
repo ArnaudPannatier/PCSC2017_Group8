@@ -1,5 +1,4 @@
 //
-//
 // Created by Groupe 8
 // Muhammad Haziq Bin Razali and Arnaud Pannatier
 // 28.11.17
@@ -14,10 +13,16 @@ using namespace std;
 
 class Vector : public Matrix {
 public:
+    Vector(): Matrix(){};
     explicit Vector(vector<double>);
+    explicit Vector(const Matrix&);
     explicit Vector(size_t i): Matrix(1,i){};
 
-    size_t size() const;
+    const double& operator()(size_t i) const;
+
+    double norm() const;
+    size_t len() const;
+
 };
 
 #endif //PROJECT_VECTOR_H

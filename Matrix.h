@@ -13,6 +13,7 @@
 #include <initializer_list>
 
 
+
 using namespace std;
 
 typedef vector < vector<double> > vector2D;
@@ -41,7 +42,7 @@ public:
     void Transpose();
     Matrix T();
     bool multipliable(const Matrix& m) const;
-    Dimension size() const;
+    virtual Dimension size() const;
 
     // Operators
     Matrix operator-() const;
@@ -51,6 +52,8 @@ public:
     // Accessor
     const vector<double>& operator[](size_t i) const;
     const double& operator()(size_t i, size_t j) const;
+
+    vector2D getValues() const { return values; };
 
     Matrix operator+(const Matrix& m) const;
     Matrix operator-(const Matrix& m) const;

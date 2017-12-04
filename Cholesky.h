@@ -14,14 +14,15 @@ using namespace std;
 class Cholesky {
 public:
     // Constructor
-    Cholesky(const Matrix& nA, const Matrix& nB);
+    Cholesky(const Matrix& nA, const Vector& nB);
 
     Matrix getL();
 
+
 protected:
     Matrix A;
-    Matrix B;
-    Matrix X;
+    Vector B;
+    Vector X;
 };
 
 
