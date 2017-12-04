@@ -17,7 +17,19 @@ int main(){
     cout << "- Empty Matrix : " << m0;
     Matrix m1({{1,2,3},{1,2,3}});
     cout << "- Initializer list {{1,2,3},{1,2,3}} :" << m1;
-    // TODO : with size, and copy matrix
+
+    Matrix m2(2,3);
+    cout << "- with size (2,3)" << m2 <<endl;
+    Matrix m3(m2);
+    cout << "- copy of size(2,3)" << m3 << endl;
+
+    cout << "-- Copy operator :" << endl;
+    Matrix m4 = m3;
+    cout << "m4 = m3" << m4;
+    m3[1][2] = 1;
+    cout << "m3[1][2] = 1" << m3;
+    cout << "m4" << m4 << endl;
+
     // TODO : Transpose, multipliable, size
 
     cout << "-- Accessing : " << endl;
