@@ -6,13 +6,14 @@
 #define PROJECT_JACOBI_H
 
 #include "Matrix.h"
+#include "Vector.h"
 
 // TODO : inherit of Iterative Solver
 // TODO : TESTS
 class Jacobi {
 public:
     // TODO : remove as it will be inherited.
-    Jacobi(const Matrix& nA, const Matrix& nB);
+    Jacobi(const Matrix& nA, const Vector& nB);
 
     Matrix solve();
     void step();
@@ -21,8 +22,8 @@ public:
 
 protected:
     Matrix A;
-    Matrix B;
-    Matrix X;
+    Vector B;
+    Vector X;
 
     double eps = 1e-12;
     double error = 0.0;

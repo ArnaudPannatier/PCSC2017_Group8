@@ -10,3 +10,4 @@ add_executable(TestMatrix TestMatrix.cpp Matrix.cpp Vector.cpp Cholesky.cpp Jaco
 add_executable(Test test.cpp)
 add_executable(Test2 test.cpp Matrix.cpp directSolvers.cpp iterativeSolvers.cpp)
 add_executable(TestJacobi TestJacobi.cpp Matrix.cpp Vector.cpp Jacobi.cpp)
+add_executable(TestRichardson TestRicharson.cpp Richardson.cpp Matrix.cpp Vector.cpp)

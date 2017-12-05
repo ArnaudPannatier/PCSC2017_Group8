@@ -16,7 +16,7 @@ public:
     Vector(): Matrix(){};
     explicit Vector(vector<double>);
     explicit Vector(const Matrix&);
-    explicit Vector(size_t i): Matrix(1,i){};
+    explicit Vector(size_t i): Matrix(i,1){};
 
     const double& operator()(size_t i) const;
 

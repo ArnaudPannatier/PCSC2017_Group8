@@ -3,13 +3,12 @@
 //
 
 #include "Jacobi.h"
-#include "Vector.h"
 
-Jacobi::Jacobi (const Matrix &nA, const Matrix &nB) {
+Jacobi::Jacobi (const Matrix &nA, const Vector&nB) {
     // TODO : inherit the constructor of solver;
     A = nA;
     B = nB;
-    X = Matrix(B.size().lines, 1);
+    X = Vector(B.len());
 }
 
 Matrix Jacobi::solve () {
@@ -17,10 +16,14 @@ Matrix Jacobi::solve () {
     size_t i = 1;
     error = eps+1;
     while(error > eps && i < 100000){
-    cout << "Iteration : " << i << " Error : " << error <<  "\r";
+        cout << "Iteration : " << i << " Error : " << error <<  "\r";
 
         cout.flush();
-        step();
+        try{
+            step();
+        }catch( char const* str){
+            cout << str << endl;
+        }
         i++;
     }
     return X;

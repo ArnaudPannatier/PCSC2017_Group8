@@ -9,6 +9,7 @@ Vector::Vector (vector<double> v) {
     dim = Dimension(1,v.size());
     values = vector<vector<double>>(1,v);
     T();
+
 }
 
 Vector::Vector (const Matrix & m) {

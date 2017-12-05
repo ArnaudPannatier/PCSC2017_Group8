@@ -44,8 +44,8 @@ Matrix Matrix::T() {
             transpose(c,l) = values[l][c];
         }
     }
-    //dim.transpose();
-    //values = transpose.values;
+    dim.transpose();
+    values = transpose.values;
     return transpose;
 }
 
