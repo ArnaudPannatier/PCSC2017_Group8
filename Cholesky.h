@@ -8,10 +8,11 @@
 #include<iostream>
 #include "Matrix.h"
 #include "Vector.h"
+#include "LU.h"
 
 using namespace std;
 
-class Cholesky {
+class Cholesky : public LU {
 public:
     // Constructor
     Cholesky(const Matrix& nA, const Vector& nB);

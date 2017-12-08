@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "utils.h"
-#include "directSolvers.h"
+#include "LU.h"
 #include "iterativeSolvers.h"
 
 using namespace std;

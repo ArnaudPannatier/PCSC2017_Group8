@@ -3,10 +3,10 @@
 //
 
 #include <cmath>
-#include "directSolvers.h"
+#include "LU.h"
 
 //=================================================================================================
-directSolvers::directSolvers(const Matrix &A, const Matrix &b) : A(A), b(b) {
+LU::LU(const Matrix &A, const Matrix &b) : A(A), b(b) {
 
     if(A.size().lines == A.size().cols) {
         size = A.size().cols;
@@ -18,7 +18,7 @@ directSolvers::directSolvers(const Matrix &A, const Matrix &b) : A(A), b(b) {
 }
 
 //=================================================================================================
-void directSolvers::LU() {
+void LU::solve() {
 
     // Initialize size of LU matrices
     L = Matrix(size,size);
@@ -64,10 +64,10 @@ void directSolvers::LU() {
     }
 }
 
-Matrix directSolvers::getL() { return L; }
-Matrix directSolvers::getU() { return U; }
+Matrix LU::getL() { return L; }
+Matrix LU::getU() { return U; }
 
-Matrix directSolvers::getX() {
+Matrix LU::getX() {
 
     Matrix Y(size,1);
     Matrix X(size,1);

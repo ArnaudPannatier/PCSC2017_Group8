@@ -11,11 +11,11 @@
 
 using namespace std;
 
-class directSolvers {
+class LU {
 public:
 
     // Constructor
-    directSolvers(const Matrix& A, const Matrix& b);
+    LU(const Matrix& A, const Matrix& b);
 
     /** \brief Conjugate Gradient Descent
      * \param x_0 initial guess for the solution
@@ -27,7 +27,7 @@ public:
      * and a unit upper triangular matrix. https://en.wikipedia.org/wiki/LU_decomposition
      */
 
-    void LU();
+    void solve();
 
     Matrix getL();
     Matrix getU();
