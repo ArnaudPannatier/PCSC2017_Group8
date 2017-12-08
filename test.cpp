@@ -23,8 +23,8 @@ int main(){
     // Test for read text
 
     inputOutput io;
-    Matrix A = io.readFromText("A.txt");
-    Matrix b = io.readFromText("b.txt");
+    auto A = io.readFromText("A.txt");
+    auto b = io.readFromText("b.txt");
     cout << "A: " << A << endl << "b: " << b << endl;
 
     // ============================================================
@@ -36,8 +36,8 @@ int main(){
     // Test for LU factorization
     // todo: division by zero
 
-    directSolvers dSolvers(A, b);
-    dSolvers.LU();
+    LU dSolvers(A, b);
+    dSolvers.solve();
 
     Matrix L = dSolvers.getL();
     Matrix U = dSolvers.getU();
@@ -69,4 +69,5 @@ int main(){
     cout << "x: " << itSolvers.gaussSeidel(x_0) << endl;
 
     return 0;
+
 }
