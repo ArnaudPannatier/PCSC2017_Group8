@@ -39,6 +39,8 @@ protected:
     Matrix b;
     Matrix L;
     Matrix U;
+
+    int size = 0;
 };
 
 #endif //PROJECT_LU_H
