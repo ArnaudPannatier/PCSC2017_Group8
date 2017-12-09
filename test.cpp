@@ -5,13 +5,13 @@
 #include <iostream>
 #include <vector>
 
+#include "Matrix.h"
+#include "LU.h"
 #include "inputOutput.h"
-#include "directSolvers.h"
-#include "iterativeSolvers.h"
+#include "ConjugateGradientDescent.h"
+#include "GaussSeidel.h"
 
 using namespace std;
-
-typedef vector < vector<double> > vector2D;
 
 int main(){
 
@@ -24,7 +24,7 @@ int main(){
 
     inputOutput io;
     Matrix A = io.readFromText("A.txt");
-    Matrix b = io.readFromText("b.txt");
+    Vector b = Vector(io.readFromText("b.txt"));
     cout << "A: " << A << endl << "b: " << b << endl;
 
     // ============================================================
@@ -36,37 +36,41 @@ int main(){
     // Test for LU factorization
     // todo: division by zero
 
-    directSolvers dSolvers(A, b);
-    dSolvers.LU();
+    LU LUSolvers(A, b);
 
-    Matrix L = dSolvers.getL();
-    Matrix U = dSolvers.getU();
-    Matrix x = dSolvers.getX();
+    Vector x = LUSolvers.solve();
+    Matrix L = LUSolvers.getL();
+    Matrix U = LUSolvers.getU();
 
     cout << "L: " << L << endl;
     cout << "U: " << U << endl;
-    cout << "LU: " << L*U << endl;
-    cout << "X: " << x << endl;
+    cout << "LU - A : " << L*U - A << endl;
+    cout << "AX -B: " << A*x - b<< endl;
 
     // ============================================================
     // Test for iterative solvers
     // todo: non symmetric, psd
 
-    Matrix A2({{4,1},{1,3}});
-    Matrix b2({{1,2}}), x_0({{2,1}});
+    const Matrix A2({{4,1},{1,3}});
+    const Vector B2({1,2});
 
-    // todo: row vector default ?
-    b2 = b2.T();
-    x_0 = x_0.T();
+    cout <<" Vector B: " << B2 << endl;
+    Vector x_0({2,1});
 
     // initialize iterative solver
-    iterativeSolvers itSolvers(A2, b2);
+    ConjugateGradientDescent conjSolver(A2, B2, x_0);
 
-    // conjugate gradient descent
-    cout << "x: " << itSolvers.conjugateGradientDescent(x_0) << endl;
+    cout << "Start the test for conjugate gradient : " << endl;
 
-    // gauss seidel
-    cout << "x: " << itSolvers.gaussSeidel(x_0) << endl;
+    // Conjugate Gradient Descent
+    Vector X = conjSolver.solve();
+    cout << "x: " << X << endl;
+    cout << "Ax-B"  << A2*X-B2 << endl;
+
+    GaussSeidel gaussSolver(A2,B2,x_0);
+    // Gauss Seidel
+    cout << "x: " << gaussSolver.solve() << endl;
 
     return 0;
+
 }

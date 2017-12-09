@@ -11,8 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <initializer_list>
-
-
+#include <cmath>
 
 using namespace std;
 
@@ -40,9 +39,14 @@ public:
 
     //Public Methods
     void Transpose();
-    Matrix T();
+    Matrix T() const;
     bool multipliable(const Matrix& m) const;
     virtual Dimension size() const;
+
+    // Properties
+    bool hasZeroOnDiag() const;
+    bool isSquare() const;
+    bool isSymmetric() const;
 
     // Operators
     Matrix operator-() const;
@@ -64,6 +68,7 @@ public:
 protected:
     Dimension dim;
     vector2D values;
+    double epsilonMatrix = 1e-12;
 };
 
 #endif //PCSC2017_GROUP8_MATRIX_H

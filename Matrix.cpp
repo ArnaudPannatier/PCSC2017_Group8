@@ -37,15 +37,14 @@ void Matrix::Transpose() {
     values = transpose.values;
 }
 
-Matrix Matrix::T() {
+Matrix Matrix::T() const {
     Matrix transpose = Matrix(dim.cols, dim.lines);
     for(size_t l=0; l<dim.lines; l++){
         for(size_t c=0; c<dim.cols; c++) {
-            transpose(c,l) = values[l][c];
+            transpose[c][l] = values[l][c];
         }
     }
-    dim.transpose();
-    values = transpose.values;
+
     return transpose;
 }
 
@@ -138,6 +137,41 @@ double &Matrix::operator() (size_t i, size_t j) {
 
 Dimension Matrix::size () const {
     return dim;
+}
+
+bool Matrix::hasZeroOnDiag () const {
+    if(isSquare()) {
+        bool hasZero = false;
+        for (size_t i = 0; i < dim.lines; i++) {
+            if (abs(values[i][i]) < epsilonMatrix) {
+                hasZero = true;
+            }
+        }
+        return hasZero;
+
+    }else {
+        throw "Matrix is not square !";
+    }
+}
+
+bool Matrix::isSquare () const {
+    return (dim.lines == dim.cols);
+}
+
+bool Matrix::isSymmetric () const {
+    if(!isSquare()){
+        return false;
+    }else{
+        for(size_t i = 0; i<dim.lines; i++){
+            for(size_t j = i; j< dim.cols; j++){
+                if(this[i][j] != this[j][i]){
+                    return false;
+                }
+
+            }
+        }
+    }
+   return true;
 }
 
 Dimension::Dimension() {

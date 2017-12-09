@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "utils.h"
+#include "inputOutput.h"
 #include "Richardson.h"
 
 
@@ -11,9 +11,11 @@ using namespace std;
 
 int main(){
 
-    Matrix A = readFromText ("A.txt");
+    inputOutput io;
+
+    Matrix A = io.readFromText ("A.txt");
     cout << "Matrix A : " << A << endl;
-    Vector B(readFromText ("B.txt"));
+    Vector B(io.readFromText ("B.txt"));
     cout << "Vector B :" << B << endl;
 
     cout << "--- Start Of Richardson Test --------------- " << endl;

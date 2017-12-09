@@ -6,8 +6,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # There is typically one executable per exercise.
 # As you solve exercises, you need to add them here.
 # The syntax is add_executable(executable_name source_file_name)
-add_executable(TestMatrix TestMatrix.cpp Matrix.cpp Vector.cpp Cholesky.cpp Jacobi.cpp)
-add_executable(Test test.cpp)
-add_executable(Test2 test.cpp Matrix.cpp directSolvers.cpp iterativeSolvers.cpp)
-add_executable(TestJacobi TestJacobi.cpp Matrix.cpp Vector.cpp Jacobi.cpp)
-add_executable(TestRichardson TestRicharson.cpp Richardson.cpp Matrix.cpp Vector.cpp)
+add_executable(TestMatrix TestMatrix.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)
+add_executable(Test test.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)
+add_executable(TestJacobi TestJacobi.cpp  inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)
+add_executable(TestRichardson TestRicharson.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)

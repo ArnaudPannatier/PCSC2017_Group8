@@ -3,18 +3,17 @@
 //
 
 #include <iostream>
-#include "utils.h"
-#include "Matrix.h"
-#include "Vector.h"
+#include "inputOutput.h"
 #include "Jacobi.h"
 
 using namespace std;
 
 int main(){
 
-    Matrix A = readFromText ("A.txt");
+
+    Matrix A = inputOutput::readFromText ("A.txt");
     cout << "Matrix A : " << A << endl;
-    Vector B(readFromText ("B.txt"));
+    Vector B(inputOutput::readFromText ("B.txt"));
     cout << "Vector B :" << B << endl;
 
     cout << "--- Start Of Jacobi Test --------------- " << endl;
@@ -23,9 +22,9 @@ int main(){
     cout << "solution : " << sol << endl;
     cout << " A * X = " << A*sol << endl;
 
-    Matrix A2 = readFromText ("A2.txt");
+    Matrix A2 = inputOutput::readFromText ("A2.txt");
     cout << "Matrix A2 : " << A2 << endl;
-    Vector B2(readFromText ("B2.txt"));
+    Vector B2(inputOutput::readFromText ("B2.txt"));
     cout << "Vector B2 :" << B2 << endl;
 
 

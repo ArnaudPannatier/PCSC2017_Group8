@@ -7,26 +7,16 @@
 
 #include "Matrix.h"
 #include "Vector.h"
+#include "IterativeSolvers.h"
 
-// TODO : inherit of Iterative Solver
-// TODO : TESTS
-class Jacobi {
+class Jacobi : public IterativeSolvers {
 public:
-    // TODO : remove as it will be inherited.
-    Jacobi(const Matrix& nA, const Vector& nB);
 
-    Matrix solve();
-    void step();
+    using IterativeSolvers::IterativeSolvers;
+    void step() final;
+
 
     //TODO : verify that A is a diagonally dominant matrix
-
-protected:
-    Matrix A;
-    Vector B;
-    Vector X;
-
-    double eps = 1e-12;
-    double error = 0.0;
 };
 
 

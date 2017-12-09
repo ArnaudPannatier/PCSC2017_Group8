@@ -28,9 +28,9 @@ public:
       * @endcode
       */
 
-    Matrix readFromText(string filename);
+    static Matrix readFromText(string filename);
 
-    void writeToText(Matrix data, string filename);
+    static void writeToText(Matrix data, string filename);
 
 };
 
