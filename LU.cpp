@@ -7,6 +7,9 @@
 
 
 Vector LU::solve(){
+
+  //cout << "Start Solving with LU " << endl;
+  size = B.len();
   computeLU();
   computeX ();
   return X;
@@ -14,7 +17,7 @@ Vector LU::solve(){
 
 //=================================================================================================
 void LU::computeLU(){
-
+    //cout << "Start Computing LU" << endl;
     // Initialize size of LU matrices
     L = Matrix(size,size);
     U = Matrix(size,size);
@@ -57,15 +60,17 @@ void LU::computeLU(){
             //cout << "U[" << j << "][" << i << "] = " << U[j][i] << endl;
         }
     }
+    //cout << "L : " << L << endl;
+    //cout << "U : " << U << endl;
+
 }
 
 Matrix LU::getL() { return L; }
 Matrix LU::getU() { return U; }
 
 void LU::computeX() {
-
+    //cout << "Computing X " << endl;
     Vector Y(size);
-    Vector X(size);
 
     // solve LY = b for Y
     for(size_t i = 0; i < size; i++)
@@ -81,9 +86,11 @@ void LU::computeX() {
     for(int i = size - 1; i >= 0; i--)
     {
         double sum=0;
-        for(size_t p = size - 1; p >= i; p--) {
+        for(int p = size - 1; p >= i; p--) {
             sum += U[i][p] * X[p][0];
         }
         X[i][0]=(Y[i][0]-sum) / U[i][i];
     }
+
+    //cout << "X : " << X  << endl;
 }

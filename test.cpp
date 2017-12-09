@@ -37,29 +37,37 @@ int main(){
     // todo: division by zero
 
     LU LUSolvers(A, b);
-    LUSolvers.solve();
 
+    Vector x = LUSolvers.solve();
     Matrix L = LUSolvers.getL();
     Matrix U = LUSolvers.getU();
-    Matrix x = LUSolvers.solve();
 
     cout << "L: " << L << endl;
     cout << "U: " << U << endl;
-    cout << "LU: " << L*U << endl;
-    cout << "X: " << x << endl;
+    cout << "LU - A : " << L*U - A << endl;
+    cout << "AX -B: " << A*x - b<< endl;
 
     // ============================================================
     // Test for iterative solvers
     // todo: non symmetric, psd
 
-    Matrix A2({{4,1},{1,3}});
-    Vector B2({1,2}), x_0({2,1});
+    const Matrix A2({{4,1},{1,3}});
+    const Vector B2({1,2});
+
+    cout <<" Vector B: " << B2 << endl;
+    Vector x_0({2,1});
 
     // initialize iterative solver
     ConjugateGradientDescent conjSolver(A2, B2, x_0);
 
+    cout << "Start the test for conjugate gradient : " << endl;
+
     // Conjugate Gradient Descent
-    cout << "x: " << conjSolver.solve() << endl;
+    Vector X = conjSolver.solve();
+    cout << "x: " << X << endl;
+    cout << "A X" << A2*X << endl;
+    cout << "B2" << B2 << endl;
+    cout << "Ax-B"  << A2*X-B2 << endl;
 
     GaussSeidel gaussSolver(A2,B2,x_0);
     // Gauss Seidel

@@ -5,7 +5,7 @@
 #include "ConjugateGradientDescent.h"
 
 void ConjugateGradientDescent::step () {
-
+    cout << "Stepping : " << endl;
     double alpha = (residual.dot(residual)) / max( (searchDirection.dot(Vector(A*searchDirection))) , 1.0e-10 );
 
     // Next estimate of solution
