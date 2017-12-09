@@ -15,15 +15,15 @@ using namespace std;
 class Cholesky : public LU {
 public:
     // Constructor
-    Cholesky(const Matrix& nA, const Vector& nB);
+    Cholesky(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector()) :LU(A_, B_, X_) {
+        if(!A_.isSymmetric()){
+            throw "A is not symmetric it can't therefore be symmetric definite positive";
+        }
+    };
 
-    Matrix getL();
+    Matrix computeLTraditionnal();
 
 
-protected:
-    Matrix A;
-    Vector B;
-    Vector X;
 };
 
 

@@ -8,39 +8,29 @@
 #include <iostream>
 #include "Matrix.h"
 #include "Vector.h"
+#include "Solver.h"
 
 using namespace std;
 
-class LU {
+class LU : public Solver {
 public:
 
     // Constructor
-    LU(const Matrix& A, const Matrix& b);
+    using Solver::Solver;
 
-    /** \brief Conjugate Gradient Descent
-     * \param x_0 initial guess for the solution
-     * \param iterations maximum number of iterations
-     * \param tolerance convergence test
-     * \return solution to the problem Ax = b
-     *
-     * This method implements Crout's algorithm for factorizing a matrix A as the product of a lower triangular matrix
-     * and a unit upper triangular matrix. https://en.wikipedia.org/wiki/LU_decomposition
-     */
+    Vector solve() final;
 
-    void solve();
+    void computeLU();
+    void computeX();
 
     Matrix getL();
     Matrix getU();
-    Matrix getX();
 
 protected:
 
-    Matrix A;
-    Matrix b;
     Matrix L;
     Matrix U;
-
-    int size = 0;
+    size_t size;
 };
 
 #endif //PROJECT_LU_H

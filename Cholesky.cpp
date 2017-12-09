@@ -4,7 +4,7 @@
 #include <cmath>
 #include "Cholesky.h"
 
-Matrix Cholesky::getL (){
+Matrix Cholesky::computeLTraditionnal (){
     A[0][0] = sqrt(A[0][0]);
     size_t N = A.size().lines;
     for(size_t i=0; i<N; i++){
@@ -29,8 +29,3 @@ Matrix Cholesky::getL (){
     return A;
 }
 
-Cholesky::Cholesky (const Matrix &nA, const Vector &nB) {
-    A = nA;
-    B = nB;
-    X = Vector(B.size().cols);
-}

@@ -5,13 +5,13 @@
 #include <iostream>
 #include <vector>
 
+#include "Matrix.h"
 #include "LU.h"
 #include "inputOutput.h"
-#include "iterativeSolvers.h"
+#include "ConjugateGradientDescent.h"
+#include "GaussSeidel.h"
 
 using namespace std;
-
-typedef vector < vector<double> > vector2D;
 
 int main(){
 
@@ -23,8 +23,8 @@ int main(){
     // Test for read text
 
     inputOutput io;
-    auto A = io.readFromText("A.txt");
-    auto b = io.readFromText("b.txt");
+    Matrix A = io.readFromText("A.txt");
+    Vector b = Vector(io.readFromText("b.txt"));
     cout << "A: " << A << endl << "b: " << b << endl;
 
     // ============================================================
@@ -36,12 +36,12 @@ int main(){
     // Test for LU factorization
     // todo: division by zero
 
-    LU dSolvers(A, b);
-    dSolvers.solve();
+    LU LUSolvers(A, b);
+    LUSolvers.solve();
 
-    Matrix L = dSolvers.getL();
-    Matrix U = dSolvers.getU();
-    Matrix x = dSolvers.getX();
+    Matrix L = LUSolvers.getL();
+    Matrix U = LUSolvers.getU();
+    Matrix x = LUSolvers.solve();
 
     cout << "L: " << L << endl;
     cout << "U: " << U << endl;
@@ -53,20 +53,17 @@ int main(){
     // todo: non symmetric, psd
 
     Matrix A2({{4,1},{1,3}});
-    Matrix b2({{1,2}}), x_0({{2,1}});
-
-    // todo: row vector default ?
-    b2 = b2.T();
-    x_0 = x_0.T();
+    Vector B2({1,2}), x_0({2,1});
 
     // initialize iterative solver
-    iterativeSolvers itSolvers(A2, b2);
+    ConjugateGradientDescent conjSolver(A2, B2, x_0);
 
-    // conjugate gradient descent
-    cout << "x: " << itSolvers.conjugateGradientDescent(x_0) << endl;
+    // Conjugate Gradient Descent
+    cout << "x: " << conjSolver.solve() << endl;
 
-    // gauss seidel
-    cout << "x: " << itSolvers.gaussSeidel(x_0) << endl;
+    GaussSeidel gaussSolver(A2,B2,x_0);
+    // Gauss Seidel
+    cout << "x: " << gaussSolver.solve() << endl;
 
     return 0;
 

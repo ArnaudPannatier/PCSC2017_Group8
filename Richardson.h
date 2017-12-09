@@ -6,26 +6,18 @@
 #define PROJECT_RICHARDSON_H
 
 #include "Matrix.h"
+#include "IterativeSolvers.h"
 
-class Richardson {
+class Richardson : public IterativeSolvers {
 public:
-    // TODO : remove as it will be inherited.
-    Richardson(const Matrix& nA, const Matrix& nB, double omega_);
+    Richardson (const Matrix &A_, const Vector &B_, double omega_, const Vector &X_ = Vector(), double eps_ = 1e-6, size_t max_iter_ = 100000);
 
-    Matrix solve();
-    void step();
+    void step() final;
 
     //TODO : compute omega with the condition number \omega_opt = 2/(\lambda_min(A) +\lambda_max(A))
 
 
 protected:
-    Matrix A;
-    Matrix B;
-    Matrix X;
-
-    double eps = 1e-12;
-    double error = 0.0;
-    size_t max_iter = 100000;
     double omega;
 };
 

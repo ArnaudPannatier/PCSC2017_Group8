@@ -6,9 +6,9 @@
 #define PROJECT_CG_H
 
 #include <iostream>
-#include <assert.h>
 #include "Matrix.h"
 #include "Vector.h"
+#include "Solver.h"
 
 using namespace std;
 
@@ -16,42 +16,25 @@ using namespace std;
   *
   */
 
-class iterativeSolvers {
+class IterativeSolvers: public Solver  {
 public:
 
     // Constructor
-    iterativeSolvers(const Matrix& A, const Matrix& B);
+    IterativeSolvers(const Matrix& A_, const Vector& B_, const Vector& X_ = Vector(), double eps_ = 1e-6, size_t max_iter_ = 10000): Solver(A_,B_, X_) {
+        eps = eps_;
+        error = 0.0;
+        max_iter = max_iter_;
+    };
 
-    /** \brief Conjugate Gradient Descent
-      * \param x_0 initial guess for the solution
-      * \param iterations maximum number of iterations
-      * \param tolerance convergence test
-      * \return solution to the problem Ax = b
-      *
-      * This method implements the conjugate gradient descent for solving Ax = b, where A is a real, symmetric, and
-      * positive-definite matrix https://en.wikipedia.org/wiki/Conjugate_gradient_method
-      */
 
-    Matrix conjugateGradientDescent(Matrix& x_0, int iterations = 20, double tolerance = 1e-10);
-
-    /** \brief Gauss Seidel Method
-      * \param x_0 initial guess for the solution
-      * \param iterations maximum number of iterations
-      * \param tolerance convergence test
-      * \return solution to the problem Ax = b
-      *
-      * This method implements the equation version of the Gauss-Seidel method for solving Ax = b, where A is a square
-      * matrix with non-zero entries on the diagonal https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#An_example_for_the_equation_version
-      */
-
-    Matrix gaussSeidel(Matrix& x_0, int iterations = 20, double tolerance = 1e-10);
+    Vector solve() final;
+    virtual void step() = 0;
 
 protected:
 
-    Matrix A;
-    Matrix b;
-
-    int size = 0;
+    double eps;
+    double error;
+    size_t max_iter;
 };
 
 #endif //PROJECT_CG_H
