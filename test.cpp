@@ -65,8 +65,6 @@ int main(){
     // Conjugate Gradient Descent
     Vector X = conjSolver.solve();
     cout << "x: " << X << endl;
-    cout << "A X" << A2*X << endl;
-    cout << "B2" << B2 << endl;
     cout << "Ax-B"  << A2*X-B2 << endl;
 
     GaussSeidel gaussSolver(A2,B2,x_0);

@@ -14,7 +14,7 @@ Vector::Vector (vector<double> v) {
 Vector::Vector (initializer_list<double> list) {
     values = vector2D();
         for(auto l : list){
-            values.push_back(vector<double>(l));
+            values.push_back(vector<double>({l}));
         }
         dim = Dimension(values.size(), 1);
 }

@@ -5,18 +5,16 @@
 #include "IterativeSolvers.h"
 
 Vector IterativeSolvers::solve () {
-    size_t i = 1;
+    size_t i = 0;
     error = eps + 1;
     cout << endl;
     while ( error > eps && i < max_iter ) {
-        cout << "\r" << "Iteration : " << i << " Error : " << error;
 
         cout.flush ();
         step ();
-
-
         error = Vector(A*X - B).norm();
         i++;
+        cout << "\r" << "Iteration : " << i << " Error : " << error;
     }
     cout << endl;
     return X;
