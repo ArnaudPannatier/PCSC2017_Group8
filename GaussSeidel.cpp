@@ -5,6 +5,7 @@
 #include "GaussSeidel.h"
 
 void GaussSeidel::step () {
+
     size_t size = A.size().lines;
 
     for (int i = 0; i < size; i++) {

@@ -5,7 +5,7 @@
 #include <cmath>
 #include "LU.h"
 
-
+//=================================================================================================
 Vector LU::solve(){
 
   //cout << "Start Solving with LU " << endl;
@@ -17,6 +17,7 @@ Vector LU::solve(){
 
 //=================================================================================================
 void LU::computeLU(){
+
     //cout << "Start Computing LU" << endl;
     // Initialize size of LU matrices
     L = Matrix(size,size);
@@ -65,9 +66,7 @@ void LU::computeLU(){
 
 }
 
-Matrix LU::getL() { return L; }
-Matrix LU::getU() { return U; }
-
+//=================================================================================================
 void LU::computeX() {
     //cout << "Computing X " << endl;
     Vector Y(size);
@@ -94,3 +93,9 @@ void LU::computeX() {
 
     //cout << "X : " << X  << endl;
 }
+
+/// @return L
+Matrix LU::getL() { return L; }
+
+/// @return U
+Matrix LU::getU() { return U; }

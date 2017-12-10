@@ -33,8 +33,6 @@ Matrix inputOutput::readFromText(string filename) {
         data.push_back( record );
 
         // each row in the text file must have the same number of entries
-        // cout << record.size() << " " << data[0].size() << endl;
-
         if(record.size() != data[0].size()) {
             cerr << filename + " has missing entries. Inserting zeros" << endl;
         }

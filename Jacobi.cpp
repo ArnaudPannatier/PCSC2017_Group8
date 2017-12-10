@@ -4,6 +4,7 @@
 
 #include "Jacobi.h"
 
+
 void Jacobi::step () {
     double sigma;
     for(size_t i=0; i<X.size().lines; i++){

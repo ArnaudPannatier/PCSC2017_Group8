@@ -9,15 +9,30 @@
 #include "Vector.h"
 #include "IterativeSolvers.h"
 
+/**
+ * @brief Jacobi method
+ *
+ * This class implements the Jacobi method for solving a system of linear equations
+ * https://en.wikipedia.org/wiki/Jacobi_method
+ *
+ * @code
+ * #include "Jacobi.h"
+ *
+ * Jacobi jacobi(A,B);
+ * Vector X =jacobi.solve();
+ * @endcode
+ *
+ */
+
 class Jacobi : public IterativeSolvers {
 public:
 
     using IterativeSolvers::IterativeSolvers;
-    void step() final;
 
+    /// computes X for a single iteration
+    void step() final;
 
     //TODO : verify that A is a diagonally dominant matrix
 };
-
 
 #endif //PROJECT_JACOBI_H

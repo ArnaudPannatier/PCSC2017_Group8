@@ -6,12 +6,14 @@
 #include "Vector.h"
 
 
+//=================================================================================================
 void Richardson::step () {
     Vector errVec =  Vector(A*X - B);
     error = errVec.norm();
     X = Vector(X - errVec*omega);
 }
 
+//=================================================================================================
 Richardson::Richardson (const Matrix &A_, const Vector &B_, double omega_, const Vector &X_, double eps_, size_t max_iter_)
         : IterativeSolvers (A_, B_, X_, eps_, max_iter_)
 {
