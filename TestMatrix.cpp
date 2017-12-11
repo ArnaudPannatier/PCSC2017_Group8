@@ -8,10 +8,13 @@
 #include "gtest/gtest.h"
 #include "Matrix.h"
 #include "Vector.h"
+#include "inputOutput.h"
+#include "Jacobi.h"
+#include "Richardson.h"
 
 using namespace std;
 
-
+// MATRIX TESTS // -------------------------------------------------------------------------------
 TEST(MatrixTest, Constructors){
     Matrix m0;
     EXPECT_EQ(0, m0.size().lines);
@@ -50,6 +53,8 @@ TEST(MatrixTest, AccessorMutator){
     m1(1,2) = 10;
     EXPECT_EQ(10, m1(1,2));
 }
+
+// VECTOR TEST // -------------------------------------------------------------------------------
 TEST(VectorTest, Constructor){
     Vector v0;
     EXPECT_EQ(0, v0.size().lines);
@@ -63,6 +68,42 @@ TEST(VectorTest, Constructor){
     EXPECT_EQ(1, v1.getValues()[0].size());
 
 
+}
+
+// JACOBI TEST // ---------------------------------------------------------------------------------
+TEST(Jacobi, BaseCase){
+    Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
+    Vector B = Vector({6,25,-11,15});
+    Jacobi jacobi(A,B);
+    Vector sol(jacobi.solve());
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-6);
+    Jacobi jacobi2(A,B, Vector(), 1e-9);
+    sol = (jacobi2.solve());
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-9);
+
+    A = Matrix({{2,1},{5,7}});
+    B = Vector({11,13});
+
+    jacobi = Jacobi(A,B);
+    sol = (jacobi.solve());
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-6);
+    jacobi2= Jacobi(A,B, Vector(), 1e-9);
+    sol = (jacobi2.solve());
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-9);
+
+}
+
+// RICHARDSON TEST // ------------------------------------------------------------------------------
+TEST(Richardson, BaseCase){
+    Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
+    Vector B = Vector({6,25,-11,15});
+    Richardson richardson(A,B, 0.1);
+    Vector sol(richardson.solve());
+
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-6);
+    Richardson richardson2(A,B, 0.1, Vector(), 1e-9);
+    sol = (richardson2.solve());
+    EXPECT_LT(Vector(A*sol-B).norm(), 1e-9);
 }
 
 
