@@ -11,6 +11,9 @@
 #include "inputOutput.h"
 #include "Jacobi.h"
 #include "Richardson.h"
+#include "LU.h"
+#include "ConjugateGradientDescent.h"
+#include "GaussSeidel.h"
 
 using namespace std;
 
@@ -70,6 +73,52 @@ TEST(VectorTest, Constructor){
 
 }
 
+// INPUT TEST // ----------------------------------------------------------------------------------
+
+TEST(InputTest, BaseCase){
+    Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
+    Vector B = Vector({6,25,-11,15});
+    inputOutput io;
+    Matrix Atxt = io.readFromText("A.txt");
+    Vector Btxt = Vector(io.readFromText("B.txt"));
+
+    EXPECT_EQ(A.size(), Atxt.size());
+    EXPECT_EQ(B.size(), Btxt.size());
+    EXPECT_EQ(A.getValues(), Atxt.getValues ());
+    EXPECT_EQ(B.getValues (), Btxt.getValues ());
+
+}
+// LU TEST // -------------------------------------------------------------------------------------
+TEST (LUdecomposition, BaseCase){
+    Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
+    Vector B = Vector({6,25,-11,15});
+    LU LUSolvers(A, B);
+    Vector x = LUSolvers.solve();
+    EXPECT_LT(Vector(A*x-B).norm(), 1e-6);
+
+
+}
+// Conjugate Gradient Descent Test // -------------------------------------------------------------
+TEST(ConjugateGradient, BaseCase){
+    const Matrix A({{4,1},{1,3}});
+    const Vector B({1,2});
+    Vector x_0({2,1});
+
+    // initialize iterative solver
+    ConjugateGradientDescent conjSolver(A, B, x_0);
+    Vector X = conjSolver.solve();
+    EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
+
+}
+// Gauss Seidel Test // ---------------------------------------------------------------------------
+TEST(GaussSeidel, BaseCase) {
+    const Matrix A({{4,1},{1,3}});
+    const Vector B({1,2});
+    Vector x_0({2,1});
+    GaussSeidel gaussSolver (A, B, x_0);
+    Vector X = gaussSolver.solve ();
+    EXPECT_LT(Vector (A * X - B).norm (), 1e-6);
+}
 // JACOBI TEST // ---------------------------------------------------------------------------------
 TEST(Jacobi, BaseCase){
     Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
@@ -105,6 +154,8 @@ TEST(Richardson, BaseCase){
     sol = (richardson2.solve());
     EXPECT_LT(Vector(A*sol-B).norm(), 1e-9);
 }
+
+// EXCEPTION TEST // -------------------------------------------------------------------------------
 
 
 int main(int argc, char **argv){

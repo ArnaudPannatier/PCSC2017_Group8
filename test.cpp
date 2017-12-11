@@ -28,13 +28,7 @@ int main(){
 
     // LU decomposition - division by zero
 
-    // ============================================================
-    // Test for read text
 
-    inputOutput io;
-    Matrix A = io.readFromText("A.txt");
-    Vector b = Vector(io.readFromText("B.txt"));
-    cout << "A: " << A << endl << "B: " << b << endl;
 
     // poorly formatted matrix
 
@@ -46,16 +40,6 @@ int main(){
     // Test for LU factorization
     // todo: division by zero
 
-    //LU LUSolvers(A, b);
-
-    //Vector x = LUSolvers.solve();
-    //Matrix L = LUSolvers.getL();
-    //Matrix U = LUSolvers.getU();
-
-    //cout << "L: " << L << endl;
-    //cout << "U: " << U << endl;
-    //cout << "LU - A : " << L*U - A << endl;
-    //cout << "AX -B: " << A*x - b<< endl;
 
     // ============================================================
     // Test for iterative solvers
