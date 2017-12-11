@@ -24,6 +24,7 @@ struct Dimension {
     void transpose();
 
     bool operator==(const Dimension&) const ;
+    bool operator!=(const Dimension&) const ;
 
     size_t lines;
     size_t cols;

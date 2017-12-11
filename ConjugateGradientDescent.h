@@ -35,25 +35,32 @@ public:
      *
      */
 
-    ConjugateGradientDescent(const Matrix& A_, const Vector& B_, const Vector& X_ = Vector(), double eps_ = 1e-6, size_t max_iter_ = 10000)
+    ConjugateGradientDescent(const Matrix& A_, const Vector& B_, const Vector& X_ = Vector(), const Matrix& Preconditionner_ = Matrix(), double eps_ = 1e-6, size_t max_iter_ = 10000)
             :IterativeSolvers(A_,B_, X_, eps_,max_iter_)
     {
         residual = Vector(B - A*X);
         searchDirection = residual;
+        if(Preconditionner_.size() != Dimension()) {
+            preconditionning();
+        }
+        Preconditionner = Preconditionner_;
     };
+
+
 
     /**
      * computes X for a single iteration
      */
-
     void step() final;
+    void preconditionning();
+
 
 private:
 
     /// residual given current solution: B - AX
     Vector residual;
-
     Vector searchDirection;
+    Matrix Preconditionner;
 
 };
 
