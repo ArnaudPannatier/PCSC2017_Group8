@@ -301,3 +301,7 @@ bool Dimension::operator== (const Dimension& d) const {
     return (lines == d.lines && cols == d.cols);
 }
 
+bool Dimension::operator!= (const Dimension & d) const {
+    return !(*this == d);
+}
+

@@ -16,23 +16,30 @@ using namespace std;
 int main(){
 
     // ============================================================
-    // Test for read text
+    // Test for exceptions
 
-    inputOutput io;
-    Matrix A = io.readFromText("A.txt");
-    Vector b = Vector(io.readFromText("B.txt"));
+    // Invalid system of linear equations
+    const Matrix A1({{1,1,1},{1,3,1}});
+    const Vector B1({1,2,3});
+
+    ConjugateGradientDescent test_conjSolver(A1, B1, B1);
+
+    // Conjugate gradient method - A is not symmetric and positive definite
+
+    // LU decomposition - division by zero
+
+
+
+    // poorly formatted matrix
 
     // ============================================================
-    // Test for preconditioning
-    // Jacobi
-    Matrix M_Jacobi = A.Diagonal();
-    cout << M_Jacobi.Inverse() << endl;
+    // Test for solvers
+    // todo: non square matrices, unequal row for A and b
+    // todo: 1d matrix = always row
 
-    // Gauss Seidel
-    LU LUSolver(A, b);
-    LUSolver.solve();
-    Matrix M_GaussSeidel = LUSolver.getL() + A.Diagonal();
-    cout << M_GaussSeidel.Inverse() << endl;
+    // Test for LU factorization
+    // todo: division by zero
+
 
     // ============================================================
     // Test for iterative solvers

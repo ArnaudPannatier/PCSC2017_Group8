@@ -23,4 +23,8 @@ void ConjugateGradientDescent::step () {
 
 }
 
+void ConjugateGradientDescent::preconditionning () {
+
+}
+
 
