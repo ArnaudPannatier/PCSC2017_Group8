@@ -6,26 +6,33 @@
 //
 
 #include "Matrix.h"
+#include "Exceptions.h"
+
+/// @brief Initializes an empty matrix
 
 Matrix::Matrix () {
     dim = Dimension(0,0);
     values = vector2D();
 }
+
 Matrix::Matrix(vector2D arr){
     dim = Dimension(arr.size(), arr[0].size());
     values = arr;
 }
+
 Matrix::Matrix (initializer_list< initializer_list<double> > list){
     values = vector2D();
     for(auto l : list){
-           values.push_back(vector<double>(l));
+           values.push_back(std::vector<double>(l));
     }
     dim = Dimension(values.size(), values[0].size());
 }
+
 Matrix::Matrix (size_t i, size_t j) {
     dim = Dimension(i,j);
     values =vector2D(i, vector<double>(j));
 }
+
 void Matrix::Transpose() {
     Matrix transpose = Matrix(dim.cols, dim.lines);
     for(size_t l=0; l<dim.lines; l++){
@@ -48,22 +55,108 @@ Matrix Matrix::T() const {
     return transpose;
 }
 
+double Matrix::Determinant() const {
+
+    double Determinant=0.0;
+
+    if(dim.lines == 1){
+        return values[0][0];
+    }
+
+    for(int i=0;i<dim.lines;i++){
+        Matrix subMatrix(dim.lines-1,dim.cols-1);
+        for(int j=0;j<dim.lines-1;j++){
+            for(int k=0;k<dim.cols-1;k++){
+                if(k<i){
+                    subMatrix[j][k] = values[j+1][k];
+                }else{
+                    subMatrix[j][k] = values[j+1][k+1];
+                }
+            }
+        }
+
+        double subMatrixDeterminant = subMatrix.Determinant();
+        Determinant = Determinant + std::pow(-1,i) * values[0][i] * subMatrixDeterminant;
+    }
+
+    // raise exception if determinant zero
+    return Determinant;
+}
+
+
+Matrix Matrix::Adjugate() const {
+
+    //raise exception if not square
+
+    if(dim.lines==1){
+        Matrix ad(1,1);
+        ad(0,0) = values[0][0];
+        return ad;
+    }else{
+        Matrix ad(dim.lines,dim.lines);
+        Matrix subAd(dim.lines-1,dim.lines-1);
+        for(int i=0;i<dim.lines;i++){
+            for(int j=0;j<dim.cols;j++){
+                for(int k=0;k<dim.lines-1;k++){
+                    for(int h=0;h<dim.cols-1;h++){
+                        if(k<i&&h<j){
+                            subAd[k][h]=values[k][h];
+                        } else if(k>=i&&h<j){
+                            subAd[k][h]=values[k+1][h];
+                        } else if(k<i&&h>=j){
+                            subAd[k][h]=values[k][h+1];
+                        }else{
+                            subAd[k][h]=values[k+1][h+1];
+                        }
+                    }
+                }
+                ad[j][i] = pow(-1,(i+j))*subAd.Determinant();
+            }
+        }
+        return ad;
+    }
+}
+
+Matrix Matrix::Inverse() const {
+
+    // todo
+    return Matrix(values).Adjugate() * (1/Matrix(values).Determinant());
+}
+
+Matrix Matrix::Diagonal() const {
+
+    Matrix diagonal(dim.lines, dim.cols);
+
+    for(size_t i = 0; i < dim.lines; i++) {
+        diagonal[i][i] = values[i][i];
+    }
+
+    return diagonal;
+}
+
 Matrix Matrix::operator-() const {
     return Matrix(*this) * -1;
 }
 
 Matrix Matrix::operator+(const Matrix &m) const {
-    if(dim == m.dim){
-        Matrix ret = m;
-        for(size_t l=0; l<dim.lines; l++){
-            for(size_t c=0; c<dim.cols; c++) {
-                ret(l,c) += values[l][c];
+    try {
+        if(dim == m.dim){
+            Matrix ret = m;
+            for(size_t l=0; l<dim.lines; l++){
+                for(size_t c=0; c<dim.cols; c++) {
+                    ret(l,c) += values[l][c];
+                }
             }
+            return ret;
+        }else{
+            throw std::runtime_error("Invalid Dimensions");
         }
-        return ret;
-    }else{
-        throw "Not the same dimension";
     }
+    catch (std::exception const& exc)
+    {
+        std::cerr << exc.what() << "\n";
+    }
+
 }
 
 Matrix Matrix::operator-(const Matrix &m) const {
@@ -81,19 +174,30 @@ Matrix Matrix::operator*(const double& d) const {
 }
 
 Matrix Matrix::operator*(const Matrix &m) const {
-    if(multipliable(m)){
-        Matrix ret = Matrix(dim.lines,m.dim.cols);
-        for(size_t i = 0; i<ret.dim.lines; i++){
-            for(size_t j = 0; j<ret.dim.cols; j++) {
-                for(size_t h=0; h<dim.cols; h++){
-                    ret(i,j) += values[i][h]*m(h,j);
+
+    try {
+        if (multipliable(m)) {
+            Matrix ret = Matrix(dim.lines, m.dim.cols);
+            for (size_t i = 0; i < ret.dim.lines; i++) {
+                for (size_t j = 0; j < ret.dim.cols; j++) {
+                    for (size_t h = 0; h < dim.cols; h++) {
+                        ret(i, j) += values[i][h] * m(h, j);
+                    }
                 }
             }
+            return ret;
+        } else {
+            //throw "Second dimension does not corresponds to first dimension of the second matrix";
+            Exceptions::DimensionsException(Matrix(values), m);
         }
-        return ret;
-    }else{
-        throw "Second dimension does not corresponds to first dimension of the second matrix";
+    } catch (const std::exception& e)
+    {
+        std::cerr << e.what() << "\n";
+        abort();
     }
+
+
+
 }
 
 std::ostream &operator<< (std::ostream &output, const Matrix &m) {
@@ -115,6 +219,7 @@ std::ostream &operator<< (std::ostream &output, const Matrix &m) {
     return output;
 }
 
+/// @brief returns true if the 2 matrices are multipliable
 bool Matrix::multipliable (const Matrix &m) const {
     return (dim.cols == m.dim.lines);
 }
@@ -135,6 +240,7 @@ double &Matrix::operator() (size_t i, size_t j) {
     return values[i][j];
 }
 
+/// @brief returns the dimensions of the matrix
 Dimension Matrix::size () const {
     return dim;
 }
@@ -154,10 +260,12 @@ bool Matrix::hasZeroOnDiag () const {
     }
 }
 
+/// @brief returns true if the matrix is square
 bool Matrix::isSquare () const {
     return (dim.lines == dim.cols);
 }
 
+/// @brief returns true is the matrix is symmetric
 bool Matrix::isSymmetric () const {
     if(!isSquare()){
         return false;

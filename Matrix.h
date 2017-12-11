@@ -29,22 +29,41 @@ struct Dimension {
     size_t cols;
 };
 
+/// @brief 2-dimensional matrix class
+
 class Matrix {
 public:
-    //Constructors
+
+    /// @brief default constructor to initialize an empty matrix
     Matrix();
+
+    /// @brief Initializes a matrix from a vector of vectors
     explicit Matrix(vector< vector<double> > arr);
+
     Matrix(initializer_list<initializer_list<double> > list);
+
+    /// @brief Initializes a zero matrix with i rows and j cols
     Matrix(size_t i, size_t j);
 
-    //Public Methods
+    // Public Methods
     void Transpose();
+
+    /// @brief Transposes the matrix
     Matrix T() const;
+
     bool multipliable(const Matrix& m) const;
     virtual Dimension size() const;
+    double Determinant() const;
+    Matrix Adjugate() const;
+    Matrix Inverse() const;
+
+    /// @brief returns the diagonal elements of the matrix
+    Matrix Diagonal() const;
 
     // Properties
     bool hasZeroOnDiag() const;
+
+    /// @brief returns true if the matrix is square
     bool isSquare() const;
     bool isSymmetric() const;
 
