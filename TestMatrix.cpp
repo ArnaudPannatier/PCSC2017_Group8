@@ -5,60 +5,68 @@
 // PCSC 2017
 //
 #include <iostream>
+#include "gtest/gtest.h"
 #include "Matrix.h"
 #include "Vector.h"
 
 using namespace std;
 
-int main(){
-    cout << "--- Start of the Tests of the Matrix Class -----------" <<endl;
-    cout << "-- Constructors and print : " << endl;
+
+TEST(MatrixTest, Constructors){
     Matrix m0;
-    cout << "- Empty Matrix : " << m0;
+    EXPECT_EQ(0, m0.size().lines);
+    EXPECT_EQ(0, m0.size().cols);
+    EXPECT_EQ(0, m0.getValues().size());
     Matrix m1({{1,2,3},{1,2,3}});
-    cout << "- Initializer list {{1,2,3},{1,2,3}} :" << m1;
-
+    EXPECT_EQ(2, m1.size().lines);
+    EXPECT_EQ(3, m1.size().cols);
+    EXPECT_EQ(2, m1.getValues().size());
+    EXPECT_EQ(3, m1.getValues()[0].size());
+    EXPECT_EQ(3, m1.getValues()[1][2]);
     Matrix m2(2,3);
-    cout << "- with size (2,3)" << m2 <<endl;
+    EXPECT_EQ(2, m2.size().lines);
+    EXPECT_EQ(3, m2.size().cols);
+    EXPECT_EQ(2, m2.getValues().size());
+    EXPECT_EQ(3, m2.getValues()[0].size());
+    EXPECT_EQ(0, m2.getValues()[1][2]);
     Matrix m3(m2);
-    cout << "- copy of size(2,3)" << m3 << endl;
-
-    cout << "-- Copy operator :" << endl;
-    Matrix m4 = m3;
-    cout << "m4 = m3" << m4;
-    m3[1][2] = 1;
-    cout << "m3[1][2] = 1" << m3;
-    cout << "m4" << m4 << endl;
-
-    // TODO : Transpose, multipliable, size
-
-    cout << "-- Accessing : " << endl;
-    cout << "m1(1,2) = " << m1(1,2) << endl;
-    cout << "m1[1][2] = " << m1[1][2] << endl;
-
-    cout << "-- Mutating : " << endl;
-    cout << "mutate : m1(1,2) = 5" << endl;
-    m1(1,2) = 5;
-    cout << "m1(1,2) = " << m1(1,2) << endl;
-    cout << "mutate : m1[0][1] = 6" << endl;
-    m1[0][1] = 6;
-    cout << "mutate : m1[0][1] = " << m1[0][1] <<endl;
-
-    // TODO : operators +,-, * const , * Matrix
-
-    cout << endl << endl;
-
-    cout << "--- Start of the Tests of the Vector Class -----------" << endl;
-    cout << "-- Constructor and print : " << endl;
+    EXPECT_EQ(2, m3.size().lines);
+    EXPECT_EQ(3, m3.size().cols);
+    EXPECT_EQ(2, m3.getValues().size());
+    EXPECT_EQ(3, m3.getValues()[0].size());
+    EXPECT_EQ(0, m3.getValues()[1][2]);
+}
+TEST(MatrixTest, AccessorMutator){
+    Matrix m0(2,3);
+    Matrix m1 = m0;
+    EXPECT_EQ(m0.getValues(), m1.getValues());
+    m1[1][2] = 3;
+    EXPECT_EQ(3, m1[1][2]);
+    EXPECT_EQ(0, m0[1][2]);
+    // ACCESSOR
+    EXPECT_EQ(3, m1[1][2]);
+    EXPECT_EQ(3, m1(1,2));
+    // MUTATOR
+    m1(1,2) = 10;
+    EXPECT_EQ(10, m1(1,2));
+}
+TEST(VectorTest, Constructor){
     Vector v0;
-    cout << "Empty Vector : " << endl;
-    cout << v0 << endl;
-    cout << "vector<double>({1,2,3}) : " << endl;
-    auto testVector = vector<double>({1,2,3});
-    auto v1 = Vector(testVector);
-    cout << v1 << endl;
+    EXPECT_EQ(0, v0.size().lines);
+    EXPECT_EQ(0, v0.size().cols);
+    EXPECT_EQ(0, v0.getValues().size());
+    auto vec1 = vector<double>({1,2,3});
+    Vector v1 = Vector(vec1);
+    EXPECT_EQ(3, v1.size().lines);
+    EXPECT_EQ(1, v1.size().cols);
+    EXPECT_EQ(3, v1.getValues().size());
+    EXPECT_EQ(1, v1.getValues()[0].size());
 
 
+}
 
-    return 0;
+
+int main(int argc, char **argv){
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
