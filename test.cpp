@@ -26,11 +26,13 @@ int main(){
     // Test for preconditioning
     // Jacobi
     Matrix M_Jacobi = A.Diagonal();
+    cout << M_Jacobi.Inverse() << endl;
 
     // Gauss Seidel
     LU LUSolver(A, b);
     LUSolver.solve();
     Matrix M_GaussSeidel = LUSolver.getL() + A.Diagonal();
+    cout << M_GaussSeidel.Inverse() << endl;
 
     // ============================================================
     // Test for iterative solvers
@@ -39,7 +41,6 @@ int main(){
     const Matrix A2({{4,1},{1,3}});
     const Vector B2({1,2});
 
-    cout <<" Vector B: " << B2 << endl;
     Vector x_0({2,1});
 
     // initialize iterative solver
