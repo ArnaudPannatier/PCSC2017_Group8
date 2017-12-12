@@ -1,5 +1,5 @@
 //
-// Created by pcsc on 12/7/17.
+// Created by Haziq on 12/7/17.
 //
 
 #ifndef PROJECT_EXCEPTIONS_H
@@ -12,21 +12,19 @@
 
 using namespace std;
 
-class Exceptions: public std::exception {
+class Exceptions {
 
 public:
 
-    static void LinearSystemsException(const Matrix & A, const Matrix & B) {
-        throw std::length_error("Invalid system of equations. \n"
-              "Size of A is [" + std::to_string(A.size().lines) + "," + std::to_string(A.size().cols) + "]\n"
-              "Size of B is [" + std::to_string(B.size().lines) + "," + std::to_string(B.size().cols) + "]\n");
-    }
+    static void LinearSystemsException(const Matrix & A, const Matrix & B);
 
-    static void DimensionsException(const Matrix & A, const Matrix & B) {
-        throw std::runtime_error("Invalid Dimensions. \n"
-                                         " Input matrix sizes are [" + std::to_string(A.size().lines) + "," + std::to_string(A.size().cols) + "] "
-                                         " and [" + std::to_string(B.size().lines) + "," + std::to_string(B.size().cols) + "]\n");
-    }
+    static void DimensionsException(const Matrix & A, const Matrix & B);
+
+    static void SquareMatrixException();
+
+    static void SymmetricMatrixException(const Matrix & A);
+
+    static void InvertibleException(const Matrix &A);
 
 };
 
