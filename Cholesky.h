@@ -32,10 +32,7 @@ public:
 
     Cholesky(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector()) :LU(A_, B_, X_) {
         if(!A_.isSymmetric()){
-            cout << "Pas symetrique ? "  << endl;
             throw "A is not symmetric it can't therefore be symmetric definite positive";
-        }else{
-            cout << "Symmetrique ! " << endl;
         }
     };
 

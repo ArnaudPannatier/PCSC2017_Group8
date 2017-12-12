@@ -53,6 +53,8 @@ void LU::computeLU(){
             }
 
             // assert
+
+            // TODO CHECK WITH EPS !!!!
             if (L[j][j] == 0) {
                 printf("det(L) close to 0!\n Can't divide by 0...\n");
             }

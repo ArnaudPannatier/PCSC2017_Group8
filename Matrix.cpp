@@ -7,6 +7,7 @@
 
 #include "Matrix.h"
 #include "Exceptions.h"
+#include "inputOutput.h"
 
 /// @brief Initializes an empty matrix
 
@@ -196,8 +197,6 @@ Matrix Matrix::operator*(const Matrix &m) const {
         abort();
     }
 
-
-
 }
 
 std::ostream &operator<< (std::ostream &output, const Matrix &m) {
@@ -271,8 +270,8 @@ bool Matrix::isSymmetric () const {
         return false;
     }else{
         for(size_t i = 0; i<dim.lines; i++){
-            for(size_t j = i; j< dim.cols; j++){
-                if(this[i][j] != this[j][i]){
+            for(size_t j = i+1; j< dim.cols; j++){
+                if(abs(values[i][j] - values[j][i]) > epsilonMatrix){
                     return false;
                 }
 
@@ -280,6 +279,13 @@ bool Matrix::isSymmetric () const {
         }
     }
    return true;
+}
+
+istream &operator>> (std::istream &is, Matrix &m) {
+    string str;
+    is >> str;
+    m = inputOutput::readFromText(str);
+    return is;
 }
 
 Dimension::Dimension() {

@@ -7,9 +7,12 @@
 #include "Solver.h"
 #include "Cholesky.h"
 #include "inputOutput.h"
+#include "ConjugateGradientDescent.h"
 
 using namespace std;
 
+
+// TODO : TEST FOR SOLVER FACTORY !!
 
 enum SolverName {
     eCholesky,
@@ -31,6 +34,18 @@ SolverName translateSolverName(string solver){
     else return Invalid_solver;
 };
 
+template <typename T>
+T stoClass(string Xs, T defaultValue){
+    if(Xs != "" && Xs != "-"){
+        T ret;
+        stringstream(Xs) >> ret;
+        return ret;
+    }else {
+        return defaultValue;
+    }
+}
+
+
 Solver* SolverFactory(string Solvers, string As, string Bs, string Xs = "", string epss = "", string max_iters = "", string supps=""){
     Matrix A = inputOutput::readFromText(As);
     Vector B = Vector(inputOutput::readFromText(Bs));
@@ -43,8 +58,12 @@ Solver* SolverFactory(string Solvers, string As, string Bs, string Xs = "", stri
 
         case eCholesky :
             res = new Cholesky(A,B);
-            cout << "c'est quoi l'erreur ? " << endl;
             break;
+
+        case eConjugateGradient: 
+            res = new ConjugateGradientDescent (A, B,  stoClass (Xs, Vector ()), Matrix (), stoClass (epss, 1e-9), stoClass (max_iters, size_t (100000)));
+            break;
+
         default:
             throw "Wrong Solver Exception";
 
@@ -60,6 +79,8 @@ void getStringForIterative(string &x, string &eps, string& max_iter){
     cout  << "What is the max number of iteration that you want to do (press ENTER for 100000) " << endl;
     cin >> max_iter;
 }
+
+
 
 void getStringFromCin(string& sol, string& a, string& b, string& x, string& eps, string& max_iter, string& supp){
     cout << "What solver do you want to use (LU, Cholesky, ConjugateGradient, GaussSeidel, Jacobi, Richardson) : " << endl;
@@ -99,7 +120,7 @@ void getStringFromCin(string& sol, string& a, string& b, string& x, string& eps,
 
 
 int main(int argc, char *argv[]){
-    // Syntax exepcted                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
+    // Syntax expected                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
     // For direct solver (LU/Cholesky)  : ./Main Solver A.txt B.txt
     // For iterative solver             : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
     //      Special cases               :
