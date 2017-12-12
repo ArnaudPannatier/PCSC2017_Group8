@@ -14,6 +14,7 @@
 #include "LU.h"
 #include "ConjugateGradientDescent.h"
 #include "GaussSeidel.h"
+#include "Cholesky.h"
 
 using namespace std;
 
@@ -95,9 +96,16 @@ TEST (LUdecomposition, BaseCase){
     LU LUSolvers(A, B);
     Vector x = LUSolvers.solve();
     EXPECT_LT(Vector(A*x-B).norm(), 1e-6);
-
-
 }
+// CHOLESKY SOLVER // -----------------------------------------------------------------------------
+TEST (Cholesky, BaseCase){
+    Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
+    Vector B = Vector({6,25,-11,15});
+    Cholesky ChoSolvers(A, B);
+    Vector x = ChoSolvers.solve();
+    EXPECT_LT(Vector(A*x-B).norm(), 1e-6);
+}
+
 // Conjugate Gradient Descent Test // -------------------------------------------------------------
 TEST(ConjugateGradient, BaseCase){
     const Matrix A({{4,1},{1,3}});

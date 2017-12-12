@@ -30,13 +30,9 @@ public:
      *
      */
 
-    Cholesky(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector()) :LU(A_, B_, X_) {
-        if(!A_.isSymmetric()){
-            throw "A is not symmetric it can't therefore be symmetric definite positive";
-        }
-    };
+    Cholesky(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector());
 
-    Matrix computeLTraditionnal();
+
 
 
 };

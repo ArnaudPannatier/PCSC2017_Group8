@@ -85,6 +85,7 @@ public:
     Matrix operator*(const Matrix& m) const;
 
     friend ostream& operator<<(ostream& output, const Matrix& m);
+    friend istream& operator >>(std::istream &is, Matrix& m);
 protected:
     Dimension dim;
     vector2D values;

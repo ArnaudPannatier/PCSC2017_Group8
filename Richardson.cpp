@@ -9,7 +9,6 @@
 //=================================================================================================
 void Richardson::step () {
     Vector errVec =  Vector(A*X - B);
-    error = errVec.norm();
     X = Vector(X - errVec*omega);
 }
 

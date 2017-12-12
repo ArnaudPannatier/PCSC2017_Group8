@@ -3,6 +3,7 @@
 //
 
 #include "ConjugateGradientDescent.h"
+#include "Cholesky.h"
 
 void ConjugateGradientDescent::step () {
     
@@ -24,7 +25,13 @@ void ConjugateGradientDescent::step () {
 }
 
 void ConjugateGradientDescent::preconditionning () {
-
+    Cholesky decomp(Preconditionner, Vector(Preconditionner.size().lines));
+    decomp.computeLU();
+    Matrix E = decomp.getL();
+    E = E.Inverse();
+    A = E*A;
+    B = Vector(E*B);
+    X = Vector(E.T()*X);
 }
 
 

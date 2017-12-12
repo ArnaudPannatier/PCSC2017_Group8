@@ -11,12 +11,11 @@ void Jacobi::step () {
         sigma = 0.0;
         for(size_t j=0; j<X.size().lines; j++){
             if(j != i){
-                // TODO : implement a vector notation
-                sigma += A[i][j]*X[j][0];
+                sigma += A[i][j]*X(j);
             }
         }
-        // TODO : implement Vector notation
-        X[i][0] = 1/A[i][i]*(B[i][0]-sigma);
+     
+        X(i) = 1/A[i][i]*(B(i)-sigma);
     }
 
 
