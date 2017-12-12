@@ -31,10 +31,6 @@ public:
      */
 
     Cholesky(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector());
-
-
-
-
 };
 
 

@@ -6,9 +6,9 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # There is typically one executable per exercise.
 # As you solve exercises, you need to add them here.
 # The syntax is add_executable(executable_name source_file_name)
-add_executable(Main Main.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp SolverFactory.h)
+add_executable(Main Main.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp Exceptions.cpp)
 
-add_executable(TestMatrix TestMatrix.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp SolverFactory.h)
+add_executable(TestMatrix TestMatrix.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp Exceptions.cpp)
 add_executable(Test test.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)
 #TODO : IF GOOGLE TEST IS NEEDED MODIFIY THE LINES AT THE END OF FILES TOO.
 

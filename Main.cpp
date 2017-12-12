@@ -10,6 +10,10 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
+    // If you just want to solve the matrix
+    // Synthax expected                 : ./Main A.txt B.txt
+
+    // If the solver is known
     // Syntax expected                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
     // For direct solver (LU/Cholesky)  : ./Main Solver A.txt B.txt
     // For iterative solver             : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
@@ -23,9 +27,14 @@ int main(int argc, char *argv[]){
         cout << "Argument " << i << " : " << argv[i] << endl;
     }
 
-    string Solvers, As, Bs, Xs, epss, max_iters, supps;
+    string Solvers, As, Bs, Xs = "", epss="", max_iters="", supps="";
 
-    if(argc < 4){
+    if(argc == 3) {
+        Solvers     = "ConjugateGradient";
+        As          = argv[1];
+        Bs          = argv[2];
+
+    }else if(argc < 4){
         if(argc != 1){
             cout << "The number of arguments you provided does not corresponds to what is expected by the programm" << endl;
         }
