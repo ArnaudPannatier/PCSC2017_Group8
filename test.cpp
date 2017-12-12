@@ -48,7 +48,6 @@ int main(){
     const Matrix A2({{4,1},{1,3}});
     const Vector B2({1,2});
 
-    cout <<" Vector B: " << B2 << endl;
     Vector x_0({2,1});
 
     // initialize iterative solver
