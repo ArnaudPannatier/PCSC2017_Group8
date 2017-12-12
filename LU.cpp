@@ -9,7 +9,6 @@
 Vector LU::solve(){
 
   //cout << "Start Solving with LU " << endl;
-  size = B.len();
   computeLU();
   computeX ();
   return X;

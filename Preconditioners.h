@@ -14,10 +14,10 @@ class Preconditioners {
 public:
 
     /// @brief Gauss-Seidel preconditioning
-    Matrix GaussSeidel(const Matrix & A);
+    static Matrix GaussSeidel(const Matrix & A);
 
     /// @brief Jacobi preconditioning
-    Matrix Jacobi(const Matrix & A);
+    static Matrix Jacobi(const Matrix & A);
 
 };
 

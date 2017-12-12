@@ -15,6 +15,7 @@
 #include "ConjugateGradientDescent.h"
 #include "GaussSeidel.h"
 #include "Cholesky.h"
+#include "Preconditioners.h"
 
 using namespace std;
 
@@ -118,6 +119,29 @@ TEST(ConjugateGradient, BaseCase){
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
 }
+
+// Preconditionnate Gradient Descent // -----------------------------------------------------------
+TEST(PreconditionnateConjugateGradient, BaseCase){
+    const Matrix A({{4,1},{1,3}});
+    const Vector B({1,2});
+    Vector x_0({2,1});
+    Matrix P = Preconditioners::Jacobi(A);
+
+    // initialize iterative solver
+    ConjugateGradientDescent conjSolver(A, B, x_0, P);
+    Vector X = conjSolver.solve();
+    EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
+
+
+    P = Preconditioners::GaussSeidel(A);
+
+    ConjugateGradientDescent conjSolver2(A, B, x_0, P);
+    X = conjSolver2.solve();
+    EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
+
+}
+
+
 // Gauss Seidel Test // ---------------------------------------------------------------------------
 TEST(GaussSeidel, BaseCase) {
     const Matrix A({{4,1},{1,3}});

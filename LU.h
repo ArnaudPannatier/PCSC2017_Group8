@@ -32,7 +32,7 @@ class LU : public Solver {
 public:
 
     // Constructor
-    using Solver::Solver;
+    LU(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector()) : Solver(A_,B_,X_){ size = A.size().lines;}
 
     /// computes the LU decomposition of A, then the solution to LUx = B
     Vector solve() final;

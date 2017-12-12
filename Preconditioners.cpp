@@ -12,7 +12,8 @@ Matrix Preconditioners::Jacobi(const Matrix &A) {
 }
 
 Matrix Preconditioners::GaussSeidel(const Matrix &A) {
-    LU LUSolver(A, Vector());
+    LU LUSolver(A, Vector(A.size().lines));
     LUSolver.computeLU();
+
     return LUSolver.getL() + A.Diagonal();
 }
