@@ -7,6 +7,7 @@
 
 #include "Matrix.h"
 #include "Vector.h"
+#include <string>
 
 /**
  * @brief Base class for linear solvers
@@ -40,6 +41,5 @@ protected:
     /// Solution to AX = B
     Vector X;
 };
-
 
 #endif //PROJECT_SOLVER_H
