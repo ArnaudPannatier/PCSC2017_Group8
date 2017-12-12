@@ -46,23 +46,19 @@ public:
         searchDirection = residual;
     };
 
-
-
-    /**
-     * computes X for a single iteration
-     */
+    /// @brief Computes X for a single iteration
     void step() final;
-    void preconditioning();
 
+    /// @brief Conditions the system of equations
+    void preconditioning();
 
 private:
 
-    /// residual given current solution: B - AX
+    /// @brief residual vector given current solution: B - AX
     Vector residual;
     Vector searchDirection;
     Matrix Preconditioner;
 
 };
-
 
 #endif //PROJECT_CONJUGATEGRADIENTDESCENT_H

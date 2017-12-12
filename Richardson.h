@@ -37,10 +37,7 @@ public:
 
     Richardson (const Matrix &A_, const Vector &B_, double omega_, const Vector &X_ = Vector(), double eps_ = 1e-6, size_t max_iter_ = 100000);
 
-    /**
-     * computes X for a single iteration
-     */
-
+    /// @brief computes X for a single iteration
     void step() final;
 
     //TODO : compute omega with the condition number \omega_opt = 2/(\lambda_min(A) +\lambda_max(A))
