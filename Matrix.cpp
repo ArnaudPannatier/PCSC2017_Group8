@@ -8,8 +8,6 @@
 #include "Matrix.h"
 #include "Exceptions.h"
 
-/// @brief Initializes an empty matrix
-
 Matrix::Matrix () {
     dim = Dimension(0,0);
     values = vector2D();
@@ -57,30 +55,40 @@ Matrix Matrix::T() const {
 
 double Matrix::Determinant() const {
 
-    double Determinant=0.0;
+    //try{
+    if(isSquare()){
+        double Determinant=0.0;
 
-    if(dim.lines == 1){
-        return values[0][0];
-    }
-
-    for(int i=0;i<dim.lines;i++){
-        Matrix subMatrix(dim.lines-1,dim.cols-1);
-        for(int j=0;j<dim.lines-1;j++){
-            for(int k=0;k<dim.cols-1;k++){
-                if(k<i){
-                    subMatrix[j][k] = values[j+1][k];
-                }else{
-                    subMatrix[j][k] = values[j+1][k+1];
-                }
-            }
+        if(dim.lines == 1){
+            return values[0][0];
         }
 
-        double subMatrixDeterminant = subMatrix.Determinant();
-        Determinant = Determinant + std::pow(-1,i) * values[0][i] * subMatrixDeterminant;
-    }
+        for(int i=0;i<dim.lines;i++){
+            Matrix subMatrix(dim.lines-1,dim.cols-1);
+            for(int j=0;j<dim.lines-1;j++){
+                for(int k=0;k<dim.cols-1;k++){
+                    if(k<i){
+                        subMatrix[j][k] = values[j+1][k];
+                    }else{
+                        subMatrix[j][k] = values[j+1][k+1];
+                    }
+                }
+            }
 
-    // raise exception if determinant zero
-    return Determinant;
+            double subMatrixDeterminant = subMatrix.Determinant();
+            Determinant = Determinant + std::pow(-1,i) * values[0][i] * subMatrixDeterminant;
+        }
+
+        // raise exception if determinant zero
+        return Determinant;
+    }
+    else
+        Exceptions::SquareMatrixException();
+
+    //}catch (std::exception const& exc){
+    //    std::cerr << exc.what() << "\n";
+    //    abort();
+    //}
 }
 
 
@@ -125,13 +133,18 @@ Matrix Matrix::Inverse() const {
 
 Matrix Matrix::Diagonal() const {
 
-    Matrix diagonal(dim.lines, dim.cols);
+    if(isSquare()){
+        Matrix diagonal(dim.lines, dim.cols);
 
-    for(size_t i = 0; i < dim.lines; i++) {
-        diagonal[i][i] = values[i][i];
+        for (size_t i = 0; i < dim.lines; i++) {
+            diagonal[i][i] = values[i][i];
+        }
+
+        return diagonal;
     }
-
-    return diagonal;
+    else{
+        Exceptions::SquareMatrixException();
+    }
 }
 
 Matrix Matrix::operator-() const {
@@ -139,24 +152,18 @@ Matrix Matrix::operator-() const {
 }
 
 Matrix Matrix::operator+(const Matrix &m) const {
-    try {
-        if(dim == m.dim){
-            Matrix ret = m;
-            for(size_t l=0; l<dim.lines; l++){
-                for(size_t c=0; c<dim.cols; c++) {
-                    ret(l,c) += values[l][c];
-                }
-            }
-            return ret;
-        }else{
-            throw std::runtime_error("Invalid Dimensions");
-        }
-    }
-    catch (std::exception const& exc)
-    {
-        std::cerr << exc.what() << "\n";
-    }
 
+    if(dim == m.dim){
+        Matrix ret = m;
+        for(size_t l=0; l<dim.lines; l++){
+            for(size_t c=0; c<dim.cols; c++) {
+                ret(l,c) += values[l][c];
+            }
+        }
+        return ret;
+    }else{
+        Exceptions::DimensionsException(Matrix(values), m);
+    }
 }
 
 Matrix Matrix::operator-(const Matrix &m) const {
@@ -174,8 +181,7 @@ Matrix Matrix::operator*(const double& d) const {
 }
 
 Matrix Matrix::operator*(const Matrix &m) const {
-
-    try {
+    try{
         if (multipliable(m)) {
             Matrix ret = Matrix(dim.lines, m.dim.cols);
             for (size_t i = 0; i < ret.dim.lines; i++) {
@@ -187,17 +193,13 @@ Matrix Matrix::operator*(const Matrix &m) const {
             }
             return ret;
         } else {
-            //throw "Second dimension does not corresponds to first dimension of the second matrix";
             Exceptions::DimensionsException(Matrix(values), m);
         }
-    } catch (const std::exception& e)
+    }catch (const std::exception& e)
     {
         std::cerr << e.what() << "\n";
         abort();
     }
-
-
-
 }
 
 std::ostream &operator<< (std::ostream &output, const Matrix &m) {
@@ -246,18 +248,25 @@ Dimension Matrix::size () const {
 }
 
 bool Matrix::hasZeroOnDiag () const {
-    if(isSquare()) {
-        bool hasZero = false;
-        for (size_t i = 0; i < dim.lines; i++) {
-            if (abs(values[i][i]) < epsilonMatrix) {
-                hasZero = true;
-            }
-        }
-        return hasZero;
 
-    }else {
-        throw "Matrix is not square !";
+    try{
+        if(isSquare()) {
+            bool hasZero = false;
+            for (size_t i = 0; i < dim.lines; i++) {
+                if (abs(values[i][i]) < epsilonMatrix) {
+                    hasZero = true;
+                }
+            }
+            return hasZero;
+
+        }else {
+            Exceptions::SquareMatrixException();
+        }
+    }catch (const std::exception& e) {
+        std::cerr << e.what() << "\n";
+        abort();
     }
+
 }
 
 /// @brief returns true if the matrix is square
