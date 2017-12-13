@@ -82,12 +82,12 @@ For iterative solvers :
 
 Conjugate Gradient          :
 ```bash
-$./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
+$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
 ```
 
 Richardson:
 ```bash
-  ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
+$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
 ```
 
 ### CLion
@@ -203,8 +203,8 @@ Implements the Jacobi method for solving a system of linear equations
 
 https://en.wikipedia.org/wiki/Jacobi_method
 
- ```
- GaussSeidel(A, B, opts[ X_0, epsilson, max_iter ])
+ ```c++
+Jacobi(A, B, opts[ X_0, epsilson, max_iter ])
  ```
 - Richardson
 
@@ -213,7 +213,7 @@ Implements the Richardson Method for solving a system of linear equations
 https://en.wikipedia.org/wiki/Modified_Richardson_iteration
 
 
-```
+```c++
 Richardson(A, B, omega, opts[ X_0, epsilson, max_iter ]);
 ```
 
