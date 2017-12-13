@@ -35,6 +35,8 @@ cmake ..
 make
 ```
 
+The google test API is downloaded during the build by CMake. If it does not work, please redo the cmake command.
+
 ### Clion
 
 2. Ensure that you have [Clion](https://www.jetbrains.com/clion/) installed (tested on clion version 2017.2 on ubuntu and MacOSX)
@@ -247,22 +249,57 @@ A solver factory is implemented to create the Solver that the user want. It take
 
 The resolution is then made taking use of the polymorphism of the class.
 
+A templated function `stoClass` which translate string to object have also been implemented. It was practical for the solver factory.
+
+### Example of linear systems
+
+Example of linear systems can be found in the folder Examples.
+
 
 ## List of tests
+The tests are implemented using Google Test Suite.
+
+https://github.com/google/googletest
+
+To run all the test, run the following command :
+
+```bash
+./Test
+```
+
+The google test API is downloaded during the build by CMake. If it does not work, please redo the cmake process.
 
 ### Matrix and Vector
 
+- All constructors have been tested for the Matrix and Vector classes.
+
+- Mutator and Accessor have been tested.
+
+- The copy constructor was tested too.
+
+- TODO : Tests for the differents operator : +,-,* and methods translate(), inverse(), dot(), norm().
+
 ### Solver
 
+- All the solver have been tested on the base case provided in the Example Folder.
+
+- TODO : Test the solvers in different cases.
+
 ### Solver Factory
+
+- The template function `stoClass` have been tested in the case of `Vector()`, `double`, `size_t`. Which are used by the programm.
+
+- TODO : Test for the solver factory.
 
 ## TODOs and perspectives
 
 - Add tests for all the cases that are not treated for now.
 
+- Test the solver with more example of linear systems.
+
 - Add new preconditioners.
 
-- Implement the preconditioners for more solvers.
+- Implement the preconditioners for more iterative solvers.
 
 - Compute _omega_ for Richardson method using the power method to find the eigenvalues. Knowing that _omega_ = 2/(_lambda_\_min + _lambda_\_max)
 
