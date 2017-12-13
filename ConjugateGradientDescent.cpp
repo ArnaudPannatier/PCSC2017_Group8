@@ -29,7 +29,6 @@ void ConjugateGradientDescent::preconditioning () {
     Cholesky decomp(Preconditioner, Vector(Preconditioner.size().lines));
     decomp.computeLU();
     Matrix E = decomp.getL();
-    E = E.Inverse();
     A = E*A;
     B = Vector(E*B);
     X = Vector(E.T()*X);

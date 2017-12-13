@@ -294,6 +294,7 @@ bool Matrix::isSymmetric () const {
 }
 
 istream &operator>> (std::istream &is, Matrix &m) {
+
     string str;
     is >> str;
     m = inputOutput::readFromText(str);

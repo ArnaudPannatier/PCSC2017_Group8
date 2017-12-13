@@ -16,6 +16,7 @@
 #include "GaussSeidel.h"
 #include "Cholesky.h"
 #include "Preconditioners.h"
+#include "SolverFactory.h"
 
 using namespace std;
 
@@ -109,12 +110,12 @@ TEST (Cholesky, BaseCase){
 
 // Conjugate Gradient Descent Test // -------------------------------------------------------------
 TEST(ConjugateGradient, BaseCase){
-    const Matrix A({{4,1},{1,3}});
-    const Vector B({1,2});
-    Vector x_0({2,1});
+    const Matrix A = inputOutput::readFromText ("A10by10.txt");
+    const Vector B = Vector(inputOutput::readFromText ("B10by10.txt"));
+
 
     // initialize iterative solver
-    ConjugateGradientDescent conjSolver(A, B, x_0);
+    ConjugateGradientDescent conjSolver(A, B);
     Vector X = conjSolver.solve();
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
@@ -122,20 +123,19 @@ TEST(ConjugateGradient, BaseCase){
 
 // Preconditionnate Gradient Descent // -----------------------------------------------------------
 TEST(PreconditionnateConjugateGradient, BaseCase){
-    const Matrix A({{4,1},{1,3}});
-    const Vector B({1,2});
-    Vector x_0({2,1});
+    const Matrix A = inputOutput::readFromText ("A10by10.txt");
+    const Vector B = Vector(inputOutput::readFromText ("B10by10.txt"));
     Matrix P = Preconditioners::Jacobi(A);
 
     // initialize iterative solver
-    ConjugateGradientDescent conjSolver(A, B, x_0, P);
+    ConjugateGradientDescent conjSolver(A, B, Vector(), P);
     Vector X = conjSolver.solve();
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
 
     P = Preconditioners::GaussSeidel(A);
 
-    ConjugateGradientDescent conjSolver2(A, B, x_0, P);
+    ConjugateGradientDescent conjSolver2(A, B, Vector(), P);
     X = conjSolver2.solve();
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
@@ -189,6 +189,35 @@ TEST(Richardson, BaseCase){
 
 // EXCEPTION TEST // -------------------------------------------------------------------------------
 
+
+// SOlVER FACTORY TEST // --------------------------------------------------------------------------
+
+TEST(SolverFactory, stoClass){
+    Vector B(stoClass("-", Vector()));
+    EXPECT_EQ(B.len(), 0);
+
+    // NOTE : Disable this test if you remove B10x10.txt
+
+    B = stoClass("B10by10.txt", Vector());
+    EXPECT_EQ(B.len(), 10);
+
+    double eps(stoClass("", 0.0));
+    EXPECT_EQ (eps, 0.0);
+    eps = stoClass("1e-5", 0.0);
+    EXPECT_EQ (eps, 1e-5);
+
+    size_t max_iter(stoClass("", size_t(100000)));
+    EXPECT_EQ (max_iter, 100000);
+    max_iter = stoClass("100", size_t(100000));
+    EXPECT_EQ (max_iter, 100);
+
+
+}
+
+TEST(SolverFactory, ReturnGoodSolver){
+
+
+}
 
 int main(int argc, char **argv){
     ::testing::InitGoogleTest(&argc, argv);

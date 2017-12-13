@@ -73,8 +73,10 @@ void getStringForIterative (string &x, string &eps, string &max_iter) {
 }
 
 void getStringFromCin (string &sol, string &a, string &b, string &x, string &eps, string &max_iter, string &supp) {
-    cout << "What solver do you want to use (LU, Cholesky, ConjugateGradient, GaussSeidel, Jacobi, Richardson) : " << endl;
-    cin >> sol;
+    while(translateSolverName(sol) == Invalid_solver) {
+        cout << "What solver do you want to use (LU, Cholesky, ConjugateGradient, GaussSeidel, Jacobi, Richardson) : " << endl;
+        cin >> sol;
+    }
     cout << "What is the path to your Matrix A (A.txt) : " << endl;
     cin >> a;
     cout << "What is the path to your Matrix B (B.txt) : " << endl;

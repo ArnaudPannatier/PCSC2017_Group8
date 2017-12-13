@@ -1,11 +1,12 @@
-# CS-596-Video-Reconstruction
-
-# PCSC - Group 8 - Linear solvers
+# MATH-458 - PCSC - Group 8 - Linear solvers
 
 This C++ project is solving linear system _Ax = b_ by using different methods.
 Two principals differences distinguishes the solvers ....
 
 ## Compilation
+
+TODO : compilation with CMake
+
 1. Ensure that you have [clion](https://www.jetbrains.com/clion/) installed (tested on clion version 2017.2 on ubuntu)
 2. Clone this repository
 3. Launch clion via bash

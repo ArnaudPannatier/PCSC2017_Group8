@@ -39,13 +39,13 @@ public:
             :IterativeSolvers(A_,B_, X_, eps_,max_iter_)
     {
         Preconditioner = Preconditioner_;
+
         if(Preconditioner_.size() != Dimension()) {
             preconditioning();
         }
         residual = Vector(B - A*X);
         searchDirection = residual;
     };
-
 
 
     /**
