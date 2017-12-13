@@ -17,3 +17,15 @@ Matrix Preconditioners::GaussSeidel(const Matrix &A) {
 
     return LUSolver.getL() + A.Diagonal();
 }
+
+Matrix Preconditioners::fromString (string str,const Matrix &A) {
+    if(str == "Jacobi"){
+        return Jacobi(A);
+    }else if(str == "GaussSeidel"){
+        return GaussSeidel (A);
+    }else{
+        throw "Wrong name of preconditioner";
+    }
+
+
+}

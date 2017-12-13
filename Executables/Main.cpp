@@ -14,12 +14,12 @@ int main(int argc, char *argv[]){
     // Syntax expected                 : ./Main A.txt B.txt
 
     // If the solver is known
-    // Syntax expected                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
+    // Syntax expected                  : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter preconditioner/omega
     // For direct solver (LU/Cholesky)  : ./Main Solver A.txt B.txt
-    // For iterative solver             : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
+    // For iterative solver             : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
     //      Special cases               :
-    //      Conjugate Gradient          : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
-    //      Richardson                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
+    //      PCConjugate Gradient        : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter preconditinner
+    //      Richardson                  : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter omega
 
     cout << "Number of arguments : " << argc << endl;
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 
     }else if(argc < 4){
         if(argc != 1){
-            cout << "The number of arguments you provided does not corresponds to what is expected by the programm" << endl;
+            cout << "The number of arguments you provided does not corresponds to what is expected by the program" << endl;
         }
         getStringFromCin(Solvers,As,Bs,Xs,epss, max_iters, supps);
 

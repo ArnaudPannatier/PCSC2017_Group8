@@ -27,6 +27,7 @@ enum SolverName {
     eCholesky,
     eLU,
     eConjugateGradient,
+    ePCConjugateGradient,
     eGaussSeidel,
     eJacobi,
     eRichardson,

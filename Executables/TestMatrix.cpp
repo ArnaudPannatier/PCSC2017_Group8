@@ -114,6 +114,7 @@ TEST(ConjugateGradient, BaseCase){
 }
 
 // Preconditionnate Gradient Descent // -----------------------------------------------------------
+/*
 TEST(PreconditionnateConjugateGradient, BaseCase){
     const Matrix A = inputOutput::readFromText ("../Examples/A10by10.txt");
     const Vector B = Vector(inputOutput::readFromText ("../Examples/B10by10.txt"));
@@ -132,7 +133,7 @@ TEST(PreconditionnateConjugateGradient, BaseCase){
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
 }
-
+*/
 
 // Gauss Seidel Test // ---------------------------------------------------------------------------
 TEST(GaussSeidel, BaseCase) {
@@ -179,9 +180,6 @@ TEST(Richardson, BaseCase){
     EXPECT_LT(Vector(A*sol-B).norm(), 1e-9);
 }
 
-// EXCEPTION TEST // -------------------------------------------------------------------------------
-
-
 // SOlVER FACTORY TEST // --------------------------------------------------------------------------
 
 TEST(SolverFactory, stoClass){
@@ -206,9 +204,76 @@ TEST(SolverFactory, stoClass){
 
 }
 
-TEST(SolverFactory, ReturnGoodSolver){
 
 
+TEST(SolverFactory, SolvesWithStandardinput){
+
+    // For iterative solver             : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    //      Special cases               :
+    //      PCConjugate Gradient        : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter preconditinner
+    //      Richardson                  : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter omega
+
+
+    // Syntax expected                 : ./Main A.txt B.txt
+    string Solvers="ConjugateGradient", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "", epss="", max_iters="", supps="";
+    Matrix A(inputOutput::readFromText(As)), B(inputOutput::readFromText (Bs));
+    Solver * solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    Vector result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-6);
+
+    // For direct solver (LU/Cholesky)  : ./Main Solver A.txt B.txt
+    Solvers="LU", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "", epss="", max_iters="", supps="";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-6);
+
+    // For direct solver (LU/Cholesky)  : ./Main Solver A.txt B.txt
+    Solvers="Cholesky", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "", epss="", max_iters="", supps="";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-6);
+
+
+    // For iterative solvers : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    Solvers="ConjugateGradient", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "../Examples/X10by10.txt", epss="1e-8", max_iters="10000000", supps="";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-8);
+
+    // For iterative solvers : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    Solvers="PCConjugateGradient", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "../Examples/X10by10.txt", epss="1e-8", max_iters="10000000", supps="Jacobi";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-8);
+
+    // For iterative solvers : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    Solvers="GaussSeidel", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "../Examples/X10by10.txt", epss="1e-8", max_iters="10000000", supps="";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-8);
+
+
+    // For iterative solvers : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    Solvers="Jacobi", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "../Examples/X10by10.txt", epss="1e-8", max_iters="10000000", supps="";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-8);
+
+
+    // For iterative solvers : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
+    Solvers="Richardson", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "../Examples/X10by10.txt", epss="1e-8", max_iters="10000000", supps="0.01";
+    delete solver;
+    solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
+    result = solver->solve();
+    EXPECT_LT(Vector(A*result-B).norm(), 1e-8);
+
+    delete solver;
 }
 
 int main(int argc, char **argv){
