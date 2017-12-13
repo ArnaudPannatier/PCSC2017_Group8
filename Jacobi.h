@@ -29,7 +29,7 @@ public:
 
     using IterativeSolvers::IterativeSolvers;
 
-    /// computes X for a single iteration
+    /// @brief computes X for a single iteration
     void step() final;
 
     //TODO : verify that A is a diagonally dominant matrix

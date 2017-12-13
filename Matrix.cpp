@@ -56,7 +56,6 @@ Matrix Matrix::T() const {
 
 double Matrix::Determinant() const {
 
-    //try{
     if(isSquare()){
         double Determinant=0.0;
 
@@ -85,11 +84,6 @@ double Matrix::Determinant() const {
     }
     else
         Exceptions::SquareMatrixException();
-
-    //}catch (std::exception const& exc){
-    //    std::cerr << exc.what() << "\n";
-    //    abort();
-    //}
 }
 
 
@@ -182,26 +176,19 @@ Matrix Matrix::operator*(const double& d) const {
 }
 
 Matrix Matrix::operator*(const Matrix &m) const {
-    try{
-        if (multipliable(m)) {
-            Matrix ret = Matrix(dim.lines, m.dim.cols);
-            for (size_t i = 0; i < ret.dim.lines; i++) {
-                for (size_t j = 0; j < ret.dim.cols; j++) {
-                    for (size_t h = 0; h < dim.cols; h++) {
-                        ret(i, j) += values[i][h] * m(h, j);
-                    }
+    if (multipliable(m)) {
+        Matrix ret = Matrix(dim.lines, m.dim.cols);
+        for (size_t i = 0; i < ret.dim.lines; i++) {
+            for (size_t j = 0; j < ret.dim.cols; j++) {
+                for (size_t h = 0; h < dim.cols; h++) {
+                    ret(i, j) += values[i][h] * m(h, j);
                 }
             }
-            return ret;
-        } else {
-            Exceptions::DimensionsException(Matrix(values), m);
         }
-    }catch (const std::exception& e)
-    {
-        std::cerr << e.what() << "\n";
-        abort();
+        return ret;
+    } else {
+        Exceptions::DimensionsException(Matrix(values), m);
     }
-
 }
 
 std::ostream &operator<< (std::ostream &output, const Matrix &m) {
@@ -223,7 +210,6 @@ std::ostream &operator<< (std::ostream &output, const Matrix &m) {
     return output;
 }
 
-/// @brief returns true if the 2 matrices are multipliable
 bool Matrix::multipliable (const Matrix &m) const {
     return (dim.cols == m.dim.lines);
 }
@@ -251,24 +237,18 @@ Dimension Matrix::size () const {
 
 bool Matrix::hasZeroOnDiag () const {
 
-    try{
-        if(isSquare()) {
-            bool hasZero = false;
-            for (size_t i = 0; i < dim.lines; i++) {
-                if (abs(values[i][i]) < epsilonMatrix) {
-                    hasZero = true;
-                }
+    if(isSquare()) {
+        bool hasZero = false;
+        for (size_t i = 0; i < dim.lines; i++) {
+            if (abs(values[i][i]) < epsilonMatrix) {
+                hasZero = true;
             }
-            return hasZero;
-
-        }else {
-            Exceptions::SquareMatrixException();
         }
-    }catch (const std::exception& e) {
-        std::cerr << e.what() << "\n";
-        abort();
-    }
+        return hasZero;
 
+    }else {
+        Exceptions::SquareMatrixException();
+    }
 }
 
 /// @brief returns true if the matrix is square

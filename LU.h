@@ -31,25 +31,37 @@ using namespace std;
 class LU : public Solver {
 public:
 
-    // Constructor
+    /**
+     * @param A_ Square matrix where each row represents a single observation
+     * @param B_ Column vector
+     * @param X_ Not required
+     */
     LU(const Matrix &A_, const Vector &B_, const Vector &X_ = Vector()) : Solver(A_,B_,X_){ size = A.size().lines;}
 
-    /// computes the LU decomposition of A, then the solution to LUx = B
+    /// @brief computes the LU decomposition of A, then the solution to LUx = B
     Vector solve() final;
 
-    /// computes the LU decomposition of A
+    /// @brief computes the LU decomposition of A
     void computeLU();
 
-    /// computes the solution to LUx = B
+    /// @brief computes the solution to LUx = B
     void computeX();
 
+    /// @brief Returns the lower triangular matrix
     Matrix getL();
+
+    /// @brief Returns the upper triangular matrix
     Matrix getU();
 
 protected:
 
+    /// @brief Lower triangular matrix
     Matrix L;
+
+    /// @brief Upper triangular matrix
     Matrix U;
+
+    /// @brief Size of matrix A
     size_t size;
 };
 

@@ -12,10 +12,7 @@
 
 using namespace std;
 
-/**
- * @brief Abstract class for several iterative methods
- *
- */
+/// @brief Abstract class for several iterative methods
 
 class IterativeSolvers: public Solver  {
 public:
@@ -35,19 +32,20 @@ public:
     };
 
 
-    /**
-     * This method computes the solution to AX = B. It repeatedly calls step()
-     */
-
+    /// @brief This method computes the solution to AX = B. It repeatedly calls step
     Vector solve() final;
-
 
     virtual void step() = 0;
 
 protected:
 
+    /// @brief The maximum desired error at which the iterative algorithm stops
     double eps;
+
+    /// @brief Error given current estimate of X
     double error;
+
+    /// @brief The maximum desired number of iterations at which the iterative algorithm stops
     size_t max_iter;
 };
 

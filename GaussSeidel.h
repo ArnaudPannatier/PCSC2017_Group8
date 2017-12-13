@@ -23,7 +23,10 @@
 
 class GaussSeidel : public IterativeSolvers {
 public:
+
     using IterativeSolvers::IterativeSolvers;
+
+    /// @brief Computes X for a single iteration
     void step() final;
 };
 
