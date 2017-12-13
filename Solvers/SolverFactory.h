@@ -15,6 +15,7 @@
 #include "GaussSeidel.h"
 #include "Jacobi.h"
 #include "Richardson.h"
+#include "Preconditioners.h"
 
 using namespace std;
 
