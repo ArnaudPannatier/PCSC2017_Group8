@@ -5,8 +5,8 @@
 #ifndef PROJECT_INPUTOUTPUT_H
 #define PROJECT_INPUTOUTPUT_H
 
-#include "Matrix.h"
-#include "Vector.h"
+#include "../Types/Matrix.h"
+#include "../Types/Vector.h"
 #include <fstream>
 #include <sstream>
 

@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string>
 #include "Solver.h"
-#include "inputOutput.h"
+#include "../Helpers/inputOutput.h"
 #include "LU.h"
 #include "Cholesky.h"
 #include "ConjugateGradientDescent.h"

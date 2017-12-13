@@ -6,8 +6,8 @@
 //
 
 #include "Matrix.h"
-#include "Exceptions.h"
-#include "inputOutput.h"
+#include "../Helpers/inputOutput.h"
+#include "../Helpers/Exceptions.h"
 
 Matrix::Matrix () {
     dim = Dimension(0,0);

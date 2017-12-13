@@ -5,9 +5,7 @@
 #ifndef PROJECT_LU_H
 #define PROJECT_LU_H
 
-#include <iostream>
-#include "Matrix.h"
-#include "Vector.h"
+
 #include "Solver.h"
 
 using namespace std;

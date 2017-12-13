@@ -5,7 +5,6 @@
 #ifndef PROJECT_RICHARDSON_H
 #define PROJECT_RICHARDSON_H
 
-#include "Matrix.h"
 #include "IterativeSolvers.h"
 
 /**

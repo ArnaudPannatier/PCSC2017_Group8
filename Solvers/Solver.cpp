@@ -3,7 +3,7 @@
 //
 
 #include "Solver.h"
-#include "Exceptions.h"
+
 
 Solver::Solver (const Matrix &A_, const Vector &B_, const Vector &X_) {
 

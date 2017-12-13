@@ -5,10 +5,10 @@
 #ifndef PROJECT_EXCEPTIONS_H
 #define PROJECT_EXCEPTIONS_H
 
-#include "Matrix.h"
+#include "../Types/Matrix.h"
 #include <iostream>
 #include <exception>
-#include "string.h"
+
 
 using namespace std;
 

@@ -6,8 +6,6 @@
 #define PROJECT_CHOLESKY_H
 
 #include<iostream>
-#include "Matrix.h"
-#include "Vector.h"
 #include "LU.h"
 
 using namespace std;

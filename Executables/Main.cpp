@@ -3,8 +3,8 @@
 //
 
 #include <iostream>
-#include "Solver.h"
-#include "SolverFactory.h"
+#include "../Solvers/Solver.h"
+#include "../Solvers/SolverFactory.h"
 
 using namespace std;
 

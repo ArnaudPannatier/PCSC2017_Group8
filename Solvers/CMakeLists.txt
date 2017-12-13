@@ -1,0 +1,1 @@
+add_library(Solvers Cholesky.cpp ConjugateGradientDescent.cpp GaussSeidel.cpp IterativeSolvers.cpp Jacobi.cpp LU.cpp Preconditioners.cpp PCConjugateGradientDescent.cpp Richardson.cpp Solver.cpp SolverFactory.cpp)

@@ -6,17 +6,8 @@
 //
 #include <iostream>
 #include "gtest/gtest.h"
-#include "Matrix.h"
-#include "Vector.h"
-#include "inputOutput.h"
-#include "Jacobi.h"
-#include "Richardson.h"
-#include "LU.h"
-#include "ConjugateGradientDescent.h"
-#include "GaussSeidel.h"
-#include "Cholesky.h"
-#include "Preconditioners.h"
-#include "SolverFactory.h"
+#include "../Solvers/Solver.h"
+#include "../Solvers/SolverFactory.h"
 
 using namespace std;
 

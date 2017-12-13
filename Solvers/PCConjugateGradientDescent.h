@@ -6,6 +6,7 @@
 #define PROJECT_PCCONJUGATEGRADIENTDESCENT_H
 
 #include "IterativeSolvers.h"
+#include "Cholesky.h"
 
 /**
  * @brief Preconditioned Conjugate Gradient Method

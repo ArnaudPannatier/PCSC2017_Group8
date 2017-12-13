@@ -5,8 +5,6 @@
 #ifndef PROJECT_JACOBI_H
 #define PROJECT_JACOBI_H
 
-#include "Matrix.h"
-#include "Vector.h"
 #include "IterativeSolvers.h"
 
 /**

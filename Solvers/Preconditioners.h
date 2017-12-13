@@ -4,7 +4,7 @@
 // PCSC 2017
 //
 
-#include "Matrix.h"
+#include "../Types/Matrix.h"
 
 #ifndef PROJECT_PRECONDITIONERS_H
 #define PROJECT_PRECONDITIONERS_H

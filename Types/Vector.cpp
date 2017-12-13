@@ -2,7 +2,6 @@
 // Created by Arnaud Pannatier on 28.11.17.
 //
 
-#include <cmath>
 #include "Vector.h"
 
 Vector::Vector (vector<double> v) {

@@ -5,9 +5,12 @@
 #ifndef PROJECT_SOLVER_H
 #define PROJECT_SOLVER_H
 
-#include "Matrix.h"
-#include "Vector.h"
+#include "../Types/Matrix.h"
+#include "../Types/Vector.h"
+#include "../Helpers/Exceptions.h"
 #include <string>
+#include <cmath>
+#include <iostream>
 
 /**
  * @brief Base class for linear solvers

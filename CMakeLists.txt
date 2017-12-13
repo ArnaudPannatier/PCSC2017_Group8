@@ -1,15 +1,30 @@
 cmake_minimum_required(VERSION 3.8)
+
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-# The next lines represent a list of all the executables in the folder (chapter)
-# There is typically one executable per exercise.
-# As you solve exercises, you need to add them here.
-# The syntax is add_executable(executable_name source_file_name)
-add_executable(Main Main.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp Exceptions.cpp Preconditioners.cpp)
+# The next lines represent a list of all the executables
 
-add_executable(TestMatrix TestMatrix.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp SolverFactory.cpp Exceptions.cpp Preconditioners.cpp)
-add_executable(Test test.cpp inputOutput.cpp Matrix.cpp Vector.cpp Solver.cpp IterativeSolvers.cpp LU.cpp Cholesky.cpp GaussSeidel.cpp ConjugateGradientDescent.cpp Jacobi.cpp Richardson.cpp)
+add_subdirectory(Types)
+add_subdirectory(Solvers)
+add_subdirectory(Helpers)
+
+
+add_executable(Main Executables/Main.cpp)
+
+target_link_libraries(Main Types)
+target_link_libraries(Main Solvers)
+target_link_libraries(Main Helpers)
+
+
+add_executable(Test Executables/TestMatrix.cpp)
+
+target_link_libraries(Test Types)
+target_link_libraries(Test Solvers)
+target_link_libraries(Test Helpers)
+
+
 
 #TODO : IF GOOGLE TEST IS NEEDED MODIFIY THE LINES AT THE END OF FILES TOO.
 
@@ -48,5 +63,5 @@ endif()
 
 # Now simply link against gtest or gtest_main as needed.
 ## TODO : CHANGE FOR ALL EXECUTABLES
-target_link_libraries(TestMatrix gtest_main)
-add_test(NAME example_test COMMAND TestMatrix)
+target_link_libraries(Test gtest_main)
+add_test(NAME example_test COMMAND Test)

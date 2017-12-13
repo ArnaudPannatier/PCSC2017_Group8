@@ -6,8 +6,6 @@
 #define PROJECT_CG_H
 
 #include <iostream>
-#include "Matrix.h"
-#include "Vector.h"
 #include "Solver.h"
 
 using namespace std;
