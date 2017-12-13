@@ -41,7 +41,7 @@ Solver *SolverFactory (string Solvers, string As, string Bs, string Xs, string e
             break;
 
         case eConjugateGradient:
-            res = new ConjugateGradientDescent (A, B,  stoClass (Xs, Vector ()), stoClass(supps,Matrix ()), stoClass (epss, 1e-6), stoClass (max_iters, size_t (100000)));
+            res = new ConjugateGradientDescent (A, B,  stoClass (Xs, Vector ()), stoClass (epss, 1e-6), stoClass (max_iters, size_t (100000)));
             break;
         case eGaussSeidel :
             res = new GaussSeidel(A,B, stoClass(Xs,Vector()), stoClass(epss, 1e-6), stoClass (max_iters,size_t (100000)));
