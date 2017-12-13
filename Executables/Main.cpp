@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char *argv[]){
 
     // If you just want to solve the matrix
-    // Synthax expected                 : ./Main A.txt B.txt
+    // Syntax expected                 : ./Main A.txt B.txt
 
     // If the solver is known
     // Syntax expected                  : ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega

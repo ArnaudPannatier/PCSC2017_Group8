@@ -24,14 +24,13 @@ void ConjugateGradientDescent::step () {
 
 }
 
-void ConjugateGradientDescent::preconditioning () {
-
-    Cholesky decomp(Preconditioner, Vector(Preconditioner.size().lines));
-    decomp.computeLU();
-    Matrix E = decomp.getL();
-    A = E*A;
-    B = Vector(E*B);
-    X = Vector(E.T()*X);
+ConjugateGradientDescent::ConjugateGradientDescent (const Matrix &A_, const Vector &B_, const Vector &X_, double eps_, size_t max_iter_)
+        :IterativeSolvers(A_,B_, X_, eps_,max_iter_)
+{
+    residual = Vector(B - A*X);
+    searchDirection = residual;
 }
+
+
 
 

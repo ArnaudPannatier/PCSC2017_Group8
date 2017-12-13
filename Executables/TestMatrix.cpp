@@ -102,8 +102,8 @@ TEST (Cholesky, BaseCase){
 
 // Conjugate Gradient Descent Test // -------------------------------------------------------------
 TEST(ConjugateGradient, BaseCase){
-    const Matrix A = inputOutput::readFromText ("A10by10.txt");
-    const Vector B = Vector(inputOutput::readFromText ("B10by10.txt"));
+    const Matrix A = inputOutput::readFromText ("../Examples/A10by10.txt");
+    const Vector B = Vector(inputOutput::readFromText ("../Examples/B10by10.txt"));
 
 
     // initialize iterative solver
@@ -115,19 +115,19 @@ TEST(ConjugateGradient, BaseCase){
 
 // Preconditionnate Gradient Descent // -----------------------------------------------------------
 TEST(PreconditionnateConjugateGradient, BaseCase){
-    const Matrix A = inputOutput::readFromText ("A10by10.txt");
-    const Vector B = Vector(inputOutput::readFromText ("B10by10.txt"));
+    const Matrix A = inputOutput::readFromText ("../Examples/A10by10.txt");
+    const Vector B = Vector(inputOutput::readFromText ("../Examples/B10by10.txt"));
     Matrix P = Preconditioners::Jacobi(A);
 
     // initialize iterative solver
-    ConjugateGradientDescent conjSolver(A, B, Vector(), P);
+    PCConjugateGradientDescent conjSolver(A, B, Vector(), P);
     Vector X = conjSolver.solve();
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
 
     P = Preconditioners::GaussSeidel(A);
 
-    ConjugateGradientDescent conjSolver2(A, B, Vector(), P);
+    PCConjugateGradientDescent conjSolver2(A, B, Vector(), P);
     X = conjSolver2.solve();
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 

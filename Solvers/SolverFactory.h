@@ -16,6 +16,7 @@
 #include "Jacobi.h"
 #include "Richardson.h"
 #include "Preconditioners.h"
+#include "PCConjugateGradientDescent.h"
 
 using namespace std;
 

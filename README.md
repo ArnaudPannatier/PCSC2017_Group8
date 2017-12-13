@@ -1,27 +1,35 @@
-# MATH-458 - PCSC - Group 8 - Linear solvers
+
+
+<p align="center">
+<a href="https://www.epfl.ch/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-vVrl4uJ_wi87EB-oh-tAntpf3ct4ev7i2BSJLaF_3mC6zhoc" /></a>
+</p>
+
+# MATH-458 - PCSC - Linear solvers
 
 This C++ project consist in solving linear system _Ax = b_ by different methods.
 
 7 solvers are implemented : LU decomposition, Cholesky decomposition, Conjugate Gradient Descent, Preconditionate Conjugate Gradient Descent, Jacobi, Gauss-Seidel, and Richardson method.
 The two first solvers are direct methods and the others are iterative methods.
 
-This project is a part of the course : "*Programming concepts for scientific computing*" given at EPFL by **Guillaume Anciaux** in 2017.
+This project is a part of the course : "*Programming Concepts in Scientific Computing*" given at EPFL by **Guillaume Anciaux** in fall 2017.
 
 **Authors : Muhammad Haziq Bin Razali, Arnaud Pannatier**
-## Compilation
+
+Group 8
+## Compilation and Execution
 1. Clone this repository
 ```bash
 $ git clone https://github.com/ArnaudPannatier/PCSC2017_Group8.git
 ```
 
 ### CMake
-2. create a build directory
+2. Create a build directory
 ```bash
 $ cd PCSC2017_Group8/
 $ mkdir build
 $ cd build
 ```
-3. run CMake
+3. Run CMake
 ```bash
 cmake ..
 make
@@ -37,15 +45,66 @@ $ clion
 4. Set the working directory to the root of the cloned file
 5. Run the demo by setting the Run/Debug configuration dialog box to demo then clicking on Run (Green Arrow)
 
-## Use the program with the executable
+## Using the programm
 
-.....
+
+### Executable
+
+The simplest way of using the program is to simply run the executable with the proper arguments.
+
+#### If you just want to solve the matrix
+the syntax expected is :
+
+```bash
+$ ./Main A.txt B.txt
+```
+and it will use Conjugate gradient descend to solve the system.
+
+#### If the solver is known
+the syntax expected is :
+ ```bash
+ $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
+ ```
+
+##### In particular :
+For direct solvers (LU/Cholesky)  :
+ ```bash
+ $ ./Main Solver A.txt B.txt
+ ```
+
+For iterative solvers :
+ ```bash
+ $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
+ ```
+##### Special cases:
+
+Conjugate Gradient          :
+```bash
+$./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
+```
+
+Richardson:
+```bash
+  ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
+```
+
+### CLion
+
+The cases described bellow can be applied in CLion by using _Edit Configuration_ of the executable.
+
+### From cin
+
+You can run :
+```bash
+$ ./Main.cpp
+```
+
+and the needed arguments will be asked by the program.
 
 ## Typical program execution (the flow)
-TODO : Add some description of the solvers and the wikipedia link
 
 
-The program typically starts by instantating a Matrix and Vector object. This can be done in 2 ways: by reading from a text file, or by coding it manually as shown below. Note that each row of the Matrix A represents a single equation.
+The program typically starts by instantating a Matrix and Vector object. This can be done in 2 ways: by reading from a text file, or by coding it manually as shown below. Note that each row of the `Matrix A represents a single equation.
 
 ```c++
 inputOutput io;
@@ -56,7 +115,7 @@ const Matrix A2({{1,1,-1},{1,-2,3},{2,3,-1}});
 const Vector B2({4,-6,7});
 ```
 
-We can then instantiate from the list of solvers below. Note that some of the iterative methods require an initial guess x_0 of the solution to Ax = b. 
+The user can then instantiate a solver from the list below. Note that some of the iterative methods require an initial guess x_0 of the solution to Ax = b and more arguments.
 
 ```c++
 // Example of running the conjugate gradient method
@@ -75,43 +134,119 @@ cout << X_conjSolver << endl;
 cout << X_jacobi << endl;
 ```
 
-## Available solvers
 
-Below are the list of implemented solvers and their constructors
+## List of Features
+### Available solvers
 
-### Direct solvers :
-- Lu
+Below are the list of implemented solvers and their constructors.
+
+#### Direct solvers :
+- LU
+
+ Implements the LU decomposition of a matrix based on Crout's algorithm that returns a lower triangular matrix and a unit upper triangular matrix.
+
+ https://en.wikipedia.org/wiki/Crout_matrix_decomposition
+
 ```c++
 LU(A, B, opts[X_0])
 ```
+
+
 - Cholesky
+
+Implements the Cholesky decomposition of a matrix that returns a lower triangular matrix and its transpose. It's a special case of LU decomposition when the matrix A is symmetric.
+
+https://en.wikipedia.org/wiki/Cholesky_decomposition
+
 ```c++
 Cholesky(A,B, opts[X_0])
 ```
 
-### Iterative solvers :
+#### Iterative solvers :
 - Conjugate Gradient Descent
+
+Implements the method for conjugate gradient descent. Which has the property to converge when the matrix is symmetric definite positive. In the other cases, the convergence can appear as well but with no guarantee.
+
+https://en.wikipedia.org/wiki/Conjugate_gradient_method
 
 ```c++
 ConjugateGradientDescent(A, B, opts[ X_0, epsilson, max_iter ])
 ```
 
 - Preconditionate Gradient Descent
+
+Implements the methode for preconditionate gradient descent. Preconditionning will insure that matrix will have as smaller condition number. This should leads to a faster and numerically more stable convergences.
+
+https://en.wikipedia.org/wiki/Conjugate_gradient_method
+
 ```c++
 PCConjugateGradientDescent(A,B, P, opts[ X_0, epsilson, max_iter ])
 ```
+
+
 - Gauss Seidel
+
+Implements the Gauss-Seidel method for solving a system of linear equations.
+
+https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method
+
 ```c++
 GaussSeidel(A, B, opts[ X_0, epsilson, max_iter ])
 ```
+
+
 - Jacobi
+
+Implements the Jacobi method for solving a system of linear equations
+
+https://en.wikipedia.org/wiki/Jacobi_method
+
  ```
  GaussSeidel(A, B, opts[ X_0, epsilson, max_iter ])
  ```
 - Richardson
+
+Implements the Richardson Method for solving a system of linear equations
+
+https://en.wikipedia.org/wiki/Modified_Richardson_iteration
+
+
 ```
 Richardson(A, B, omega, opts[ X_0, epsilson, max_iter ]);
 ```
+
+### Types
+- Matrix
+
+Class that represents Matrices. They can be of any size. An instance of this class can be created from `vector<vector<double>>`, ` initializer_list ` and can also be read from files using the reader.
+
+Operator +,-, *double, *Matrix, =,\[ \],() have been overloaded to allow pratical computation.
+Operator << and >> have been overloaded to allow practical display and practical translation from string.
+
+Some typical methods for matrices as `Transpose()`, ` Inverse() ` ... also have been implemented.
+
+- Vector
+
+Inherit from Matrix class. Represent vector type.
+
+Some practical methods for vectors  as scalar product : ` dot()`, norm induced from scalar product : ` norm() `, ... also have been implemented.
+
+### Reader and writer
+
+A class reader is provided in order to create an instance of Matrix from a .txt file.
+
+```c++
+Matrix A = inputOutput::readFromText("A.txt");
+```
+
+A writer was also implemented if one want to output the results in a file instead of printing it in the terminal.
+
+### Solver Factory
+
+A solver factory is implemented to create the Solver that the user want. It takes as input the parameters that the user provides either in the _arguments_ or in the _cin_ and return a pointer to a Solver.
+
+The resolution is then made taking use of the polymorphism of the class.
+
 
 ## List of tests
 
@@ -122,5 +257,13 @@ Richardson(A, B, omega, opts[ X_0, epsilson, max_iter ]);
 ### Solver Factory
 
 ## TODOs and perspectives
+
+- Add tests for all the cases that are not treated for now.
+
+- Add new preconditioners.
+
+- Implement the preconditioners for more solvers.
+
+- Compute _omega_ for Richardson method using the power method to find the eigenvalues. Knowing that _omega_ = 2/(_lambda_\_min + _lambda_\_max)
 
 
