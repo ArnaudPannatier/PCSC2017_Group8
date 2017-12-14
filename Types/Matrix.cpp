@@ -54,77 +54,67 @@ Matrix Matrix::T() const {
     return transpose;
 }
 
-double Matrix::Determinant() const {
-
-    if(isSquare()){
-        double Determinant=0.0;
-
-        if(dim.lines == 1){
-            return values[0][0];
-        }
-
-        for(int i=0;i<dim.lines;i++){
-            Matrix subMatrix(dim.lines-1,dim.cols-1);
-            for(int j=0;j<dim.lines-1;j++){
-                for(int k=0;k<dim.cols-1;k++){
-                    if(k<i){
-                        subMatrix[j][k] = values[j+1][k];
-                    }else{
-                        subMatrix[j][k] = values[j+1][k+1];
-                    }
-                }
-            }
-
-            double subMatrixDeterminant = subMatrix.Determinant();
-            Determinant = Determinant + std::pow(-1,i) * values[0][i] * subMatrixDeterminant;
-        }
-
-        // raise exception if determinant zero
-        return Determinant;
-    }
-    else
-        Exceptions::SquareMatrixException();
-}
-
-
-Matrix Matrix::Adjugate() const {
-
-    //raise exception if not square
-
-    if(dim.lines==1){
-        Matrix ad(1,1);
-        ad(0,0) = values[0][0];
-        return ad;
-    }else{
-        Matrix ad(dim.lines,dim.lines);
-        Matrix subAd(dim.lines-1,dim.lines-1);
-        for(int i=0;i<dim.lines;i++){
-            for(int j=0;j<dim.cols;j++){
-                for(int k=0;k<dim.lines-1;k++){
-                    for(int h=0;h<dim.cols-1;h++){
-                        if(k<i&&h<j){
-                            subAd[k][h]=values[k][h];
-                        } else if(k>=i&&h<j){
-                            subAd[k][h]=values[k+1][h];
-                        } else if(k<i&&h>=j){
-                            subAd[k][h]=values[k][h+1];
-                        }else{
-                            subAd[k][h]=values[k+1][h+1];
-                        }
-                    }
-                }
-                ad[j][i] = pow(-1,(i+j))*subAd.Determinant();
-            }
-        }
-        return ad;
-    }
-}
-
 Matrix Matrix::Inverse() const {
 
-    // todo
-    return Matrix(values).Adjugate() * (1/Matrix(values).Determinant());
+    float d = 0;
+
+    // Left half of the augmented matrix in gaussian elimination
+    Matrix L = Matrix(values);
+
+    // Right half of the augmented matrix (identity matrix) in gaussian elimination
+    Matrix R = Matrix(dim.lines, dim.cols);
+    for (size_t i = 0; i < dim.lines; i++)
+        R[i][i] = 1;
+
+    // Partial pivoting
+    for (size_t i = dim.lines - 1; i > 0; i--) {
+        if (L[i - 1][0] < L[i][0])
+            for (size_t j = 0; j < dim.lines; j++) {
+                d = L[i][j];
+                L[i][j] = L[i - 1][j];
+                L[i - 1][j] = d;
+
+                d = R[i][j];
+                R[i][j] = R[i - 1][j];
+                R[i - 1][j] = d;
+            }
+    }
+
+    //cout << "pivoted output: " << endl;
+    //cout << L << endl;
+    //cout << R << endl;
+
+    // reduce to diagonal matrix
+
+    for (size_t i = 0; i < dim.lines; i++) {
+        for (size_t j = 0; j < dim.lines; j++)
+            if (j != i) {
+                d = L[j][i] / L[i][i];
+
+                if(isnan(d)) Exceptions::InvertibleException();
+
+                for (size_t k = 0; k < dim.lines; k++) {
+                    R[j][k] -= R[i][k] * d;
+                    L[j][k] -= L[i][k] * d;
+                }
+            }
+    }
+
+    //cout << "diag " << endl;
+    //cout << L << endl;
+    //cout << R << endl;
+
+    // reduce to identity matrix
+    for (size_t i = 0; i < dim.lines; i++) {
+        d = L[i][i];
+        for (size_t j = 0; j < dim.lines; j++)
+            R[i][j] = R[i][j] / d;
+    }
+
+    return R;
 }
+
+
 
 Matrix Matrix::Diagonal() const {
 

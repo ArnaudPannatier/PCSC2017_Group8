@@ -22,9 +22,9 @@ public:
 
     static void SquareMatrixException();
 
-    static void SymmetricMatrixException(const Matrix & A);
+    static void SymmetricMatrixException();
 
-    static void InvertibleException(const Matrix &A);
+    static void InvertibleException();
 
 };
 

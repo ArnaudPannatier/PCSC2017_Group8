@@ -19,10 +19,10 @@ void Exceptions::SquareMatrixException() {
     throw std::runtime_error("Input matrix is not square");
 }
 
-void Exceptions::SymmetricMatrixException(const Matrix & A) {
+void Exceptions::SymmetricMatrixException() {
     throw std::runtime_error("Input matrix is not symmetric");
 }
 
-void Exceptions::InvertibleException(const Matrix &A) {
+void Exceptions::InvertibleException() {
     throw std::runtime_error("Input matrix is not invertible");
 }

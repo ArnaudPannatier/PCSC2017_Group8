@@ -19,11 +19,15 @@ target_link_libraries(Main Helpers)
 
 
 add_executable(Test Executables/TestMatrix.cpp)
+add_executable(Temp Executables/test.cpp)
 
 target_link_libraries(Test Types)
 target_link_libraries(Test Solvers)
 target_link_libraries(Test Helpers)
 
+target_link_libraries(Temp Types)
+target_link_libraries(Temp Solvers)
+target_link_libraries(Temp Helpers)
 
 
 #TODO : IF GOOGLE TEST IS NEEDED MODIFIY THE LINES AT THE END OF FILES TOO.

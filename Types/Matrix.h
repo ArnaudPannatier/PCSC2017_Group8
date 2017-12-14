@@ -68,12 +68,6 @@ public:
     bool multipliable(const Matrix& m) const;
     virtual Dimension size() const;
 
-    /// @brief Returns the determinant of the matrix
-    double Determinant() const;
-
-
-    Matrix Adjugate() const;
-
     /// @brief Returns the inverse of the matrix
     Matrix Inverse() const;
 
