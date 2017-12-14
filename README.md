@@ -80,10 +80,12 @@ For iterative solvers :
  ```
 ##### Special cases:
 
-Conjugate Gradient          :
+Preconditionate Conjugate Gradient :
 ```bash
 $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
 ```
+
+preconitionner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
 
 Richardson:
 ```bash
@@ -289,13 +291,13 @@ The google test API is downloaded during the build by CMake. If it does not work
 
 - The template function `stoClass` have been tested in the case of `Vector()`, `double`, `size_t`. Which are used by the programm.
 
-- TODO : Test for the solver factory.
+- Test for the solver factory, all solvers are tested.
 
 ## TODOs and perspectives
 
 - Add tests for all the cases that are not treated for now.
 
-- Test the solver with more example of linear systems.
+- Test the solver with more examples of linear systems.
 
 - Add new preconditioners.
 
@@ -303,4 +305,6 @@ The google test API is downloaded during the build by CMake. If it does not work
 
 - Compute _omega_ for Richardson method using the power method to find the eigenvalues. Knowing that _omega_ = 2/(_lambda_\_min + _lambda_\_max)
 
+- More control on the cin input of the solver factory.
 
+- Add more organization in the tests

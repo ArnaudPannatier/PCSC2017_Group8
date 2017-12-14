@@ -19,6 +19,9 @@ public:
     /// @brief Jacobi preconditioning
     static Matrix Jacobi(const Matrix & A);
 
+    /// @brief
+    static Matrix fromString(string str, const Matrix &A);
+
 };
 
 #endif //PROJECT_PRECONDITIONERS_H

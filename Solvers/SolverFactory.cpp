@@ -8,6 +8,7 @@ SolverName translateSolverName (string solver) {
     if(solver == "Cholesky") return eCholesky;
     else if(solver == "LU") return eLU;
     else if(solver == "ConjugateGradient") return eConjugateGradient;
+    else if(solver == "PCConjugateGradient") return ePCConjugateGradient;
     else if(solver == "GaussSeidel") return eGaussSeidel;
     else if(solver == "Jacobi") return eJacobi;
     else if(solver == "Richardson") return eRichardson;
@@ -43,6 +44,9 @@ Solver *SolverFactory (string Solvers, string As, string Bs, string Xs, string e
         case eConjugateGradient:
             res = new ConjugateGradientDescent (A, B,  stoClass (Xs, Vector ()), stoClass (epss, 1e-6), stoClass (max_iters, size_t (100000)));
             break;
+        case ePCConjugateGradient:
+            res = new PCConjugateGradientDescent (A, B, stoClass (Xs, Vector ()), Preconditioners::fromString(supps,A), stoClass (epss, 1e-6), stoClass (max_iters, size_t (100000)));
+            break;
         case eGaussSeidel :
             res = new GaussSeidel(A,B, stoClass(Xs,Vector()), stoClass(epss, 1e-6), stoClass (max_iters,size_t (100000)));
             break;
@@ -52,7 +56,6 @@ Solver *SolverFactory (string Solvers, string As, string Bs, string Xs, string e
             break;
 
         case eRichardson:
-            cout << supps << endl;
             res = new Richardson(A,B,stoClass(supps, 0.1), stoClass(Xs,Vector()) , stoClass(epss, 1e-6), stoClass(max_iters, size_t(100000)));
             break;
         default:
@@ -92,10 +95,17 @@ void getStringFromCin (string &sol, string &a, string &b, string &x, string &eps
             getStringForIterative (x,eps,max_iter);
             break;
         case eConjugateGradient:
+        case ePCConjugateGradient:
             getStringForIterative (x,eps,max_iter);
-            // TODO : ADD preconditionners
-            cout << "Do you want to use a preconditionner : (press ENTER for no, )" << endl;
-            supp = "";
+            cout << "Do you want to use a preconditioner : (press ENTER for no, )" << endl;
+            cin >> supp;
+            // Correction if an error in made between Conjugate Gradient and Gradient in CIN
+            if(supp != "" && supp != "-"){
+                sol = "PCConjugateGradient";
+            }else{
+                sol = "ConjugateGradient";
+            }
+
             break;
         case eRichardson:
             getStringForIterative (x,eps,max_iter);
