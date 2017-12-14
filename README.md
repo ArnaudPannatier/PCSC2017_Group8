@@ -8,8 +8,8 @@
 
 This C++ project consist in solving linear system _Ax = b_ by different methods.
 
-7 solvers are implemented : LU decomposition, Cholesky decomposition, Conjugate Gradient Descent, Preconditionate Conjugate Gradient Descent, Jacobi, Gauss-Seidel, and Richardson method.
-The two first solvers are direct methods and the others are iterative methods.
+7 solvers are implemented : LU decomposition, Cholesky decomposition, Conjugate Gradient Descent, Preconditioned Conjugate Gradient Descent, Jacobi, Gauss-Seidel, and Richardson method.
+The first two solvers are direct methods and the others are iterative methods.
 
 This project is a part of the course : "*Programming Concepts in Scientific Computing*" given at EPFL by **Guillaume Anciaux** in fall 2017.
 
@@ -119,7 +119,7 @@ const Matrix A2({{1,1,-1},{1,-2,3},{2,3,-1}});
 const Vector B2({4,-6,7});
 ```
 
-The user can then instantiate a solver from the list below. Note that some of the iterative methods require an initial guess x_0 of the solution to Ax = b and more arguments.
+The user can then instantiate a solver from the list below. Note that some of the iterative methods require an initial guess x_0 to the solution to Ax = b and more arguments.
 
 ```c++
 // Example of running the conjugate gradient method
@@ -179,7 +179,7 @@ ConjugateGradientDescent(A, B, opts[ X_0, epsilson, max_iter ])
 
 - Preconditionate Gradient Descent
 
-Implements the methode for preconditionate gradient descent. Preconditionning will insure that matrix will have as smaller condition number. This should leads to a faster and numerically more stable convergences.
+Implements the method for preconditioned gradient descent. Preconditioning will ensure that the matrix has a smaller condition number. This should lead to a faster and numerically more stable convergence.
 
 https://en.wikipedia.org/wiki/Conjugate_gradient_method
 
