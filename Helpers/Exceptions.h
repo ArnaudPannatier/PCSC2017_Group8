@@ -12,6 +12,8 @@
 
 using namespace std;
 
+/// @brief Exceptions class for matrices
+
 class Exceptions {
 
 public:

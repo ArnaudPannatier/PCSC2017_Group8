@@ -9,6 +9,8 @@
 #ifndef PROJECT_PRECONDITIONERS_H
 #define PROJECT_PRECONDITIONERS_H
 
+/// @brief Preconditioners for conjugate gradient method
+
 class Preconditioners {
 
 public:
