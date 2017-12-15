@@ -114,7 +114,6 @@ TEST(ConjugateGradient, BaseCase){
 }
 
 // Preconditionnate Gradient Descent // -----------------------------------------------------------
-/*
 TEST(PreconditionnateConjugateGradient, BaseCase){
     const Matrix A = inputOutput::readFromText ("../Examples/A10by10.txt");
     const Vector B = Vector(inputOutput::readFromText ("../Examples/B10by10.txt"));
@@ -133,7 +132,6 @@ TEST(PreconditionnateConjugateGradient, BaseCase){
     EXPECT_LT(Vector(A*X-B).norm(), 1e-6);
 
 }
-*/
 
 // Gauss Seidel Test // ---------------------------------------------------------------------------
 TEST(GaussSeidel, BaseCase) {
@@ -188,7 +186,7 @@ TEST(SolverFactory, stoClass){
 
     // NOTE : Disable this test if you remove B10x10.txt
 
-    B = stoClass("B10by10.txt", Vector());
+    B = stoClass("../Examples/B10by10.txt", Vector());
     EXPECT_EQ(B.len(), 10);
 
     double eps(stoClass("", 0.0));
@@ -202,12 +200,12 @@ TEST(SolverFactory, stoClass){
     EXPECT_EQ (max_iter, 100);
 
 
+
 }
 
 
 
 TEST(SolverFactory, SolvesWithStandardinput){
-
     // For iterative solver             : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter
     //      Special cases               :
     //      PCConjugate Gradient        : ./Main Solver A.txt B.txt [optional] X.txt eps max_iter preconditinner
@@ -217,6 +215,7 @@ TEST(SolverFactory, SolvesWithStandardinput){
     // Syntax expected                 : ./Main A.txt B.txt
     string Solvers="ConjugateGradient", As="../Examples/A10by10.txt", Bs="../Examples/B10by10.txt", Xs = "", epss="", max_iters="", supps="";
     Matrix A(inputOutput::readFromText(As)), B(inputOutput::readFromText (Bs));
+    
     Solver * solver = SolverFactory(Solvers,As,Bs,Xs,epss, max_iters,supps);
     Vector result = solver->solve();
     EXPECT_LT(Vector(A*result-B).norm(), 1e-6);
