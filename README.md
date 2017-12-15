@@ -71,25 +71,25 @@ the syntax expected is :
 ##### In particular :
 For direct solvers (LU/Cholesky)  :
  ```bash
- $ ./Main Solver ../Examples/A.txt ../Examples/B.txt
+ $ ./Main LU ../Examples/A.txt ../Examples/B.txt
  ```
 
-For iterative solvers :
+For iterative solvers (ConjugateGradient/Jacobi/GaussSeidel):
  ```bash
- $ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter
+ $ ./Main Jacobi ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter
  ```
 ##### Special cases:
 
 Preconditionate Conjugate Gradient :
 ```bash
-$ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner
+$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner
 ```
 
-preconitionner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
+preconitioner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
 
 Richardson:
 ```bash
-$ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter omega
+$ ./Main Richardson ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter omega
 ```
 
 ### CLion
