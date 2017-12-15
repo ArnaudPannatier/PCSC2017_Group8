@@ -58,38 +58,38 @@ The simplest way of using the program is to simply run the executable with the p
 the syntax expected is :
 
 ```bash
-$ ./Main A.txt B.txt
+$ ./Main ../Examples/A.txt ../Examples/B.txt
 ```
 and it will use Conjugate gradient descend to solve the system.
 
 #### If the solver is known
 the syntax expected is :
  ```bash
- $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
+ $ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner/omega
  ```
 
 ##### In particular :
 For direct solvers (LU/Cholesky)  :
  ```bash
- $ ./Main Solver A.txt B.txt
+ $ ./Main Solver ../Examples/A.txt ../Examples/B.txt
  ```
 
 For iterative solvers :
  ```bash
- $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
+ $ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter
  ```
 ##### Special cases:
 
 Preconditionate Conjugate Gradient :
 ```bash
-$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
+$ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner
 ```
 
 preconitionner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
 
 Richardson:
 ```bash
-$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
+$ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter omega
 ```
 
 ### CLion
