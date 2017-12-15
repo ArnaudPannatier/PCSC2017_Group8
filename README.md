@@ -51,7 +51,7 @@ The google test API is downloaded during the build by CMake. If it does not work
 $ clion
 ```
 4. Set the working directory to the root of the cloned file
-5. Run the demo by setting the Run/Debug configuration dialog box to demo then clicking on Run (Green Arrow)
+5. Run the demo by setting the Run/Debug configuration dialog box to "Main" then clicking on Run (Green Arrow)
 
 ## Using the programm
 
@@ -61,15 +61,15 @@ $ clion
 The simplest way of using the program is to simply run the executable with the proper arguments.
 
 #### If you just want to solve the matrix
-the syntax expected is :
+the expected syntax is :
 
 ```bash
 $ ./Main ../Examples/A.txt ../Examples/B.txt
 ```
-and it will use Conjugate gradient descend to solve the system.
+and it will use the Conjugate gradient method to solve the system.
 
 #### If the solver is known
-the syntax expected is :
+the expected syntax is :
  ```bash
  $ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner/omega
  ```
@@ -86,7 +86,7 @@ For iterative solvers (ConjugateGradient/Jacobi/GaussSeidel):
  ```
 ##### Special cases:
 
-Preconditionate Conjugate Gradient :
+Preconditioned Conjugate Gradient :
 ```bash
 $ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter [notoptional] preconditionner
 $ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt - - - Jacobi
@@ -101,7 +101,7 @@ $ ./Main Richardson ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps ma
 
 ### CLion
 
-The cases described bellow can be applied in CLion by using _Edit Configuration_ of the executable.
+The cases described below can be applied in CLion by using _Edit Configuration_ of the executable.
 
 ### From cin
 
@@ -176,7 +176,7 @@ Cholesky(A,B, opts[X_0])
 #### Iterative solvers :
 - Conjugate Gradient Descent
 
-Implements the method for conjugate gradient descent. Which has the property to converge when the matrix is symmetric definite positive. In the other cases, the convergence can appear as well but with no guarantee.
+Implements the method for conjugate gradient descent. Which has the property to converge when the matrix is symmetric definite positive. In the other cases, the method can convergence but with no guarantee.
 
 https://en.wikipedia.org/wiki/Conjugate_gradient_method
 
@@ -228,12 +228,12 @@ Richardson(A, B, omega, opts[ X_0, epsilson, max_iter ]);
 
 ### Preconditioners
 
-A class Preconditioner was added to provide preconditioner for preconditioned gradient descent.
-Two basic preconditionner where implemented : Jacobi preconditioner and Gauss-Seidel preconditionner.
+A class Preconditioner was added to provide the preconditioner for the preconditioned gradient descent.
+Two basic preconditioner were implemented : Jacobi preconditioner and Gauss-Seidel preconditioner.
 
-The Jacobi preconditioner only consist of the diagonal of the matrix A and the Gausse Seidel preconditionner consist of the lower triangular matrix of the LU decomposition on which the diagonal of the matrix A is added.
+The Jacobi preconditioner only consist of the diagonal of the matrix A and the Gausse Seidel preconditioner consist of the lower triangular matrix of the LU decomposition on which the diagonal of the matrix A is added.
 
-The tests seems to shows that Jacobi preconditioner works quite well but the GaussSeidel one not. Some investigation should be made to solve that problem.
+The tests seems to shows that Jacobi preconditioner works quite well but not the GaussSeidel one. Some investigation should be made to solve that problem.
 
 ### Types
 - Matrix
