@@ -82,7 +82,8 @@ For iterative solvers (ConjugateGradient/Jacobi/GaussSeidel):
 
 Preconditionate Conjugate Gradient :
 ```bash
-$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner
+$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter [notoptional] preconditionner
+$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt - - - jacobi
 ```
 
 preconitioner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
