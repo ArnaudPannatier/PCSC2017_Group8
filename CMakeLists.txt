@@ -13,8 +13,8 @@ add_subdirectory(Helpers)
 
 add_executable(Main Executables/Main.cpp)
 
-target_link_libraries(Main Types)
 target_link_libraries(Main Solvers)
+target_link_libraries(Main Types)
 target_link_libraries(Main Helpers)
 
 
