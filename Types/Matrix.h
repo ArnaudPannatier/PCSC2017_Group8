@@ -53,6 +53,7 @@ public:
     /// @brief Initializes a matrix from a vector of vectors
     explicit Matrix(vector< vector<double> > arr);
 
+    /// @brief Initializes a matrix from a vector of vectors. Can directly initialize the vector in the argument
     Matrix(initializer_list<initializer_list<double> > list);
 
     /// @brief Initializes a zero matrix with i rows and j cols
@@ -83,15 +84,22 @@ public:
     /// @brief returns true if the matrix is symmetric
     bool isSymmetric() const;
 
-    // Operators
+    /// @brief Overloaded operator to inverse the sign of the matrix
     Matrix operator-() const;
-    //Mutator
+
+    /// @brief Mutator
     vector<double>& operator[](size_t i);
+
+    /// @brief Mutator
     double& operator()(size_t i, size_t j);
-    // Accessor
+
+    /// @brief Accessor
     const vector<double>& operator[](size_t i) const;
+
+    /// @brief Accessor
     const double& operator()(size_t i, size_t j) const;
 
+    /// @brief returns the matrix in vector2D type
     vector2D getValues() const { return values; };
 
     /// @brief Overloaded operator for matrix-matrix addition
@@ -108,6 +116,8 @@ public:
 
     /// @brief Overloaded operator for printing the elements of the matrix
     friend ostream& operator<<(ostream& output, const Matrix& m);
+
+    /// @brief Overloaded operator to load data into a matrix via stringstream
     friend istream& operator >>(std::istream &is, Matrix& m);
 
 protected:
@@ -115,8 +125,10 @@ protected:
     /// @brief Dimensions of the matrix
     Dimension dim;
 
-    /// @brief elements of the matrix
+    /// @brief Elements of the matrix
     vector2D values;
+
+    /// @brief Default values of the matrix elements
     double epsilonMatrix = 1e-12;
 };
 
