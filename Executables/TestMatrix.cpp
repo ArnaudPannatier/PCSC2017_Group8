@@ -74,8 +74,8 @@ TEST(InputTest, BaseCase){
     Matrix A = Matrix({{10,-1,2,0}, {-1,11,-1,3}, {2,-1,10,-1}, {0,3,-1,8}});
     Vector B = Vector({6,25,-11,15});
     inputOutput io;
-    Matrix Atxt = io.readFromText("A.txt");
-    Vector Btxt = Vector(io.readFromText("B.txt"));
+    Matrix Atxt = io.readFromText("../Examples/A.txt");
+    Vector Btxt = Vector(io.readFromText("../Examples/B.txt"));
 
     EXPECT_EQ(A.size(), Atxt.size());
     EXPECT_EQ(B.size(), Btxt.size());
