@@ -1,0 +1,8 @@
+<map id="IterativeSolvers" name="IterativeSolvers">
+<area shape="rect" id="node3" href="$class_conjugate_gradient_descent.html" title="Conjugate Gradient Method. " alt="" coords="5,155,184,181"/>
+<area shape="rect" id="node4" href="$class_gauss_seidel.html" title="Gauss&#45;Seidel Method. " alt="" coords="208,155,304,181"/>
+<area shape="rect" id="node5" href="$class_jacobi.html" title="Jacobi method. " alt="" coords="329,155,389,181"/>
+<area shape="rect" id="node6" href="$class_p_c_conjugate_gradient_descent.html" title="Preconditioned Conjugate Gradient Method. " alt="" coords="413,155,611,181"/>
+<area shape="rect" id="node7" href="$class_richardson.html" title="Richardson method. " alt="" coords="635,155,723,181"/>
+<area shape="rect" id="node2" href="$class_solver.html" title="Base class for linear solvers. " alt="" coords="329,5,388,32"/>
+</map>

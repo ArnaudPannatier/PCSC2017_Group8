@@ -1,0 +1,4 @@
+<map id="GaussSeidel" name="GaussSeidel">
+<area shape="rect" id="node2" href="$class_iterative_solvers.html" title="Abstract class for several iterative methods. " alt="" coords="5,80,119,107"/>
+<area shape="rect" id="node3" href="$class_solver.html" title="Base class for linear solvers. " alt="" coords="33,5,91,32"/>
+</map>
