@@ -16,6 +16,12 @@ This project is a part of the course : "*Programming Concepts in Scientific Comp
 **Authors : Muhammad Haziq Bin Razali, Arnaud Pannatier**
 
 Group 8
+
+## Requirements
+
+- CMake 3.8
+- Unix system (tested on ubuntu, debian and macos)
+
 ## Compilation and Execution
 1. Clone this repository
 ```bash
@@ -58,38 +64,39 @@ The simplest way of using the program is to simply run the executable with the p
 the syntax expected is :
 
 ```bash
-$ ./Main A.txt B.txt
+$ ./Main ../Examples/A.txt ../Examples/B.txt
 ```
 and it will use Conjugate gradient descend to solve the system.
 
 #### If the solver is known
 the syntax expected is :
  ```bash
- $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner/omega
+ $ ./Main Solver ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter preconditionner/omega
  ```
 
 ##### In particular :
 For direct solvers (LU/Cholesky)  :
  ```bash
- $ ./Main Solver A.txt B.txt
+ $ ./Main LU ../Examples/A.txt ../Examples/B.txt
  ```
 
-For iterative solvers :
+For iterative solvers (ConjugateGradient/Jacobi/GaussSeidel):
  ```bash
- $ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter
+ $ ./Main Jacobi ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter
  ```
 ##### Special cases:
 
 Preconditionate Conjugate Gradient :
 ```bash
-$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter preconditionner
+$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter [notoptional] preconditionner
+$ ./Main PCConjugateGradient ../Examples/A.txt ../Examples/B.txt - - - Jacobi
 ```
 
-preconitionner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
+preconitioner values : Jacobi/GaussSeidel for Jacobi or GaussSeidel preconditionners
 
 Richardson:
 ```bash
-$ ./Main Solver A.txt B.txt [optionnal] X.txt eps max_iter omega
+$ ./Main Richardson ../Examples/A.txt ../Examples/B.txt [optionnal] X.txt eps max_iter omega
 ```
 
 ### CLion
@@ -177,7 +184,7 @@ https://en.wikipedia.org/wiki/Conjugate_gradient_method
 ConjugateGradientDescent(A, B, opts[ X_0, epsilson, max_iter ])
 ```
 
-- Preconditionate Gradient Descent
+- Preconditioned Gradient Descent
 
 Implements the method for preconditioned gradient descent. Preconditioning will ensure that the matrix has a smaller condition number. This should lead to a faster and numerically more stable convergence.
 
@@ -218,6 +225,15 @@ https://en.wikipedia.org/wiki/Modified_Richardson_iteration
 ```c++
 Richardson(A, B, omega, opts[ X_0, epsilson, max_iter ]);
 ```
+
+### Preconditioners
+
+A class Preconditioner was added to provide preconditioner for preconditioned gradient descent.
+Two basic preconditionner where implemented : Jacobi preconditioner and Gauss-Seidel preconditionner.
+
+The Jacobi preconditioner only consist of the diagonal of the matrix A and the Gausse Seidel preconditionner consist of the lower triangular matrix of the LU decomposition on which the diagonal of the matrix A is added.
+
+The tests seems to shows that Jacobi preconditioner works quite well but the GaussSeidel one not. Some investigation should be made to solve that problem.
 
 ### Types
 - Matrix
@@ -295,6 +311,8 @@ The google test API is downloaded during the build by CMake. If it does not work
 
 ## TODOs and perspectives
 
+- Correct Gauss Seidel preconditioner.
+
 - Add tests for all the cases that are not treated for now.
 
 - Test the solver with more examples of linear systems.
@@ -307,4 +325,4 @@ The google test API is downloaded during the build by CMake. If it does not work
 
 - More control on the cin input of the solver factory.
 
-- Add more organization in the tests
+- Add more organization in the tests.
