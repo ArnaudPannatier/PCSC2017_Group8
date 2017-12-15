@@ -149,7 +149,7 @@ cout << X_jacobi << endl;
 ## List of Features
 ### Available solvers
 
-Below are the list of implemented solvers and their constructors.
+Below are the list of implemented solvers and their constructors. More information can be found through the doxygen documentation at html/annotated.html
 
 #### Direct solvers :
 - LU
