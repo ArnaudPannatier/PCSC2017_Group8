@@ -22,7 +22,7 @@ public:
     /// @brief Initializes the vector from an STL vector
     explicit Vector(vector<double>);
 
-
+    /// @brief Initializes a matrix from a vector of vectors. Can directly initialize the vector in the argument
     Vector(initializer_list<double> list);
 
     /// @brief Initializes the vector from a 1-dimensional matrix
@@ -31,10 +31,10 @@ public:
 
     explicit Vector(size_t i): Matrix(i,1){};
 
-    // Accessor
+    /// @brief Accessor
     const double& operator()(size_t i) const;
 
-    // Mutator
+    /// @brief Mutator
     double& operator()(size_t i);
 
     /// @brief Computes the dot product of 2 vectors
