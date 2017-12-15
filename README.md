@@ -16,6 +16,12 @@ This project is a part of the course : "*Programming Concepts in Scientific Comp
 **Authors : Muhammad Haziq Bin Razali, Arnaud Pannatier**
 
 Group 8
+
+## Requirements
+
+- CMake 3.8
+- Unix system (tested on ubuntu, debian and macos)
+
 ## Compilation and Execution
 1. Clone this repository
 ```bash
